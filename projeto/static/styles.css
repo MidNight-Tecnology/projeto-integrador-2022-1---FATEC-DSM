@@ -3,7 +3,7 @@
     color: white !important;
     font-family: Arial;
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: auto;
     font-size: 14px;
     display: flex;
     
@@ -13,9 +13,9 @@ a:hover {
     background-color: #303137;
     text-decoration: none;
     color: #1E1E2A;
-    padding: 13px 8rem;
+    padding: 13px 50px;
     border: 1px solid #1E1E2A;
-    
+    min-width: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,9 +25,10 @@ a:hover {
 
 #fundo{
     display: block;
-    margin:auto;
-    padding: 25px;
+    margin-left:10px;
     text-align: justify;
+    position: relative;
+    
 }
 
 #logo{
@@ -38,4 +39,28 @@ nav{
     width: auto;
     height: 50px;
     display: block;
+}
+
+h1{
+    text-align: center;
+}
+
+.btn{
+    font-size: 15px;   
+    font-family: Arial;
+    font-weight: bold;
+    margin-left: 63.2%;
+}
+
+.btn:hover {
+    background-color: #303137 !important;    
+} 
+
+.form-group, .form-select, .custom-file {
+    width: 45%;
+    margin: 0 auto !important;
+}
+.form-sol{
+    margin-left: 27.5%;
+    
 }

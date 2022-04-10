@@ -1,0 +1,62 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(120deg,rgb(151, 140, 140), rgb(48, 48, 48));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+
+.login{
+    padding-top: 200px;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.login_container{
+    height: 400px;
+    width: 500px;
+    background: linear-gradient(120deg, rgb(255, 255, 255), rgb(255, 255, 255));
+    box-sizing: border-box;
+    padding: 45px;
+    border-radius:10px;
+    
+}
+
+h6{
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.btn{
+    font-size: 25px;   
+    font-family: Arial;
+    font-weight: bold;
+    margin-left: 77%;
+    display: block;
+    
+    
+    
+}
+
+.btn:hover {
+    background-color: #303137 !important;    
+} 
+
+.link_log{
+    text-decoration: none;
+    color:#BA3135 ;
+    font-family: Arial;
+    font-weight: bold;
+    display:block;
+    float: left;
+
+}
+
+.link_log:hover {
+    color: #303137 !important;    
+} 
