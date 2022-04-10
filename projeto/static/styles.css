@@ -1,0 +1,42 @@
+h1{
+    text-align: center; 
+}
+
+h2{
+    text-align: center;
+    font-size: 20px;
+    margin: 15px;
+}
+.form-solic{
+    display: block;
+    margin: 0 auto;
+    font-size: 15pt;
+    
+}
+.form-dados{
+    display: block;
+    margin: 0 auto;
+    font-size: 15.5pt;
+    border: 1px solid black;
+}
+.group-desc{
+    margin:0 350px 0 350px;
+    border: 1px solid black;
+    height: 250;
+    
+   
+}
+#bt_enviar{
+    text-align: center;
+    margin-top: 10px;
+ 
+}
+
+.navbar-brand{
+
+    margin-left: 30px;
+}
+
+
+    
+}

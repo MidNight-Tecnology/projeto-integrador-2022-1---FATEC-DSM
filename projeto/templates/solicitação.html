@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type= "text/css"/>
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script> 
+    <script type="text/javascript" src="js/bootstrap.min.js"></script> 
+    <link href="styles.css" rel="stylesheet"/>
+</head>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" href="solicitacao.html">Solicitação</a>
+    <a class="navbar-brand" href="consulta.html">Consulta</a>
+    
+    ...
+</nav>
+<body ><br>
+<h1>Solicitação</h1>
+<h2> Nome: </h2>
+<input class="form-dados" type="text" placeholder="Escreva seu Nome ">
+
+<h2> CPF: </h2>
+<input class="form-dados" type="text" placeholder="Escreva seu CPF ">
+
+<h2> E-Mail: </h2>
+<input class="form-dados" type="text" placeholder="Escreva seu E-Mail ">
+
+<h2>Tipo de Problema:</h2>
+<select class="form-solic">
+    <option>Problema de Hardware</option>
+    <option>Problema de Software</option>
+    <option>Esclarecimento/Informação</option>
+  </select>
+
+  <h2>Descrição</h2>
+<div class="group-desc">
+    <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="6" placeholder="Descreva seu Problema"></textarea>
+</div> 
+
+
+<div id="bt_enviar">
+    <button type="button" class="btn btn-secondary btn-lg">ENVIAR</button>
+</div>
+</body>
+</html>
