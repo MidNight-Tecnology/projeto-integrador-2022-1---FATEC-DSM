@@ -7,7 +7,8 @@
 <p align="center"> 
   <a href="#objetivo"> Objetivo da Sprint </a>         |                
   <a href="#planejamento"> Planejamento da Sprint </a> |
-  <a href="#prototipo">Protótipo</a>                   |  
+  <a href="#prototipo">Protótipo</a>                   |
+  <a href="#execproje">Executando o Projeto</a>        |  
   <a href="#frontend"> Front end </a>                  |
   <a href="#backend"> Back end </a>                    |
   <a href="#orgrepo"> Organização do Repositório </a>  |
@@ -55,6 +56,23 @@
 <p></p>  
 <p> O protótipo foi pensado de acordo com as especificações dadas pelo cliente e também com o menor uso de cliques para o usuário. Acesse o documento na pasta Protótipo</p>
 
+→ [Voltar ao topo](#topo)
+  
+  
+<span id="execproje">
+📝 <b>Executando o Projeto</b>
+<p></p>  
+<p>Depois de baixar o Python (https://www.python.org/downloads/) e clonar o repositório (ou baixá-lo):</p>
+<p>Acesse a pasta do projeto por meio do terminal: cd projeto</p>
+
+<p>Digite o seguinte comando: Projeto\Scripts\activate</p>
+
+<p>Instale o flask: pip install flask</p>
+
+<p>Instale as dependências: pip install -r requirements.txt</p>
+
+<p>Execute o sistema: flask run</p>
+  
 → [Voltar ao topo](#topo)
   
   
