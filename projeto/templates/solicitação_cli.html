@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <title>Solicitação de Serviço</title>
+    
+	  <link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light " navbar-dark style="background-color:#BA3135;">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('cliente_soli_recebida') }}">Consultar</a>  
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="{{ url_for('cliente_so') }}">Solicitação de Serviço</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('lg_cliente') }}">Sair</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+<content id="fundo">
+    <br>
+    <h1>SOLICITAÇÃO DE SERVIÇO</h1> 
+    <form action="/criar" method="POST" >
+      <h6 class="form-sol">Nome:</h6>
+      <div class="form-group">
+      <input type="name" name="username" class="form-control" id="SclienteNome" required>
+      </div><br>
+
+      <h6 class="form-sol">E-mail:</h6>
+      <div class="form-group">
+      <input type="email" name="email" class="form-control" id="SclienteEmail" required>
+      </div><br>
+
+      <!--<h6 class="form-sol">CPF:</h6>
+      <div class="form-group">
+      <input type="number" name="cpf" class="form-control" id="SclienteCpf" required>
+      </div><br>
+
+      <h6 class="form-sol">Celular:</h6>
+      <div class="form-group">
+      <input type="number" name="celular" class="form-control" id="SclienteCelular" required>
+      </div><br>-->
+
+      <h6 class="form-sol">Assunto:</h6>
+      <div class="form-group">
+      <input type="text" name="assunto" class="form-control" id="SclienteAssunto" required placeholder="Tipo de Problema (Hardware/Software/Esclarecimento ou Informação) ">
+      </div><br>
+
+
+      <h6 class="form-sol">Descrição:</h6>
+      <div class="form-group">
+            <textarea name="descricao" required style="resize: none;" class="form-control" id="SclienteDesc" rows="7"></textarea>
+        </div><br>
+
+
+        <div class="btn-solicita">
+          <a type="submit" class="btn btn-primary btn-salvar" href="#" role="button" style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;" data-bs-toggle="modal" data-bs-target="#modalsolcli">Gerar solicitação</button> </a><br><br>
+        </div>
+     
+    </form>
+    
+  <!-- Modal -->
+  <div class="modal fade" id="modalsolcli" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Solicitação de Serviço</h5>
+        </div>
+        <div class="modal-body">
+          <h6 style="font-weight: normal;">Solicitação enviada com sucesso.</h6>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-primary"   href="{{ url_for('cliente_soli_recebida') }}" role="button" style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;">Sair</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</content>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+
+body{
+margin: 0 auto;
+}
+.nav-link{
+    color: white !important;
+    font-family: Arial;
+    font-weight: bold;
+    margin-left: auto;
+    font-size: 14px;
+    
+    
+}
+
+.nav-link:hover {
+    background-color: #303137;
+    text-decoration: none;
+    padding: 13px 50px;
+    border: 1px solid #1E1E2A;   
+}  
+
+#fundo{
+    display: block;
+    margin-left:10px;
+    text-align: justify;
+    position: relative;
+    
+}
+
+#logo{
+    margin-left: 10px;
+}
+
+nav{
+    width: auto;
+    height: 50px;
+    display: block;
+}
+
+h1{
+    text-align: center;
+}
+
+.btn{
+    font-size: 15px;   
+    font-family: Arial;
+    font-weight: bold;
+
+    text-decoration: none;
+    
+}
+
+.btn-solicita{
+    float: right;
+    margin-right: 27.3%;
+}
+
+.btn:hover {
+    background-color: #303137 !important;    
+    border: none;
+} 
+
+.form-group, .form-select, .custom-file {
+    width: 45%;
+    margin: 0 auto !important;
+    border: none;
+      
+}
+.form-sol{
+    margin-left: 27.5%;
+    
+}
+
+#selectCad{
+    width: 100%;
+}
+
+#selectCad:focus, #select-solrec{
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    
+} 
+
+.form-control:focus, .form-select:focus{
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    border-color:#303137;
+
+}
+
+.form-control, .form-select{
+    border-color:#303137;
+}

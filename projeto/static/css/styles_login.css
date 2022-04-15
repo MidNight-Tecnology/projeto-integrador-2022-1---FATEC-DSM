@@ -1,0 +1,98 @@
+body{
+
+    font-family: sans-serif;
+    background: linear-gradient(120deg,rgb(151, 140, 140), rgb(48, 48, 48));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+}
+
+.login{
+    padding-top: 200px;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.login_container{
+    height: 400px;
+    width: 500px;
+    background: linear-gradient(120deg, rgb(255, 255, 255), rgb(255, 255, 255));
+    box-sizing: border-box;
+    padding: 45px;
+    border-radius:10px;
+    
+}
+
+h6{
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.btn{
+    font-size: 25px;   
+    font-family: Arial;
+    font-weight: bold;
+    
+    display: block;
+    border: none !important;
+    outline: none !important;
+    text-decoration: none;
+       
+}
+
+#btn-n-cpf, #btn-f-consulta{
+    font-size: 12pt;
+}
+
+.btn:hover {
+    background-color: #303137 !important;    
+
+} 
+
+.link_log{
+    text-decoration: none;
+    color:#BA3135 ;
+    font-family: Arial;
+    font-weight: bold;
+    display:block;
+    float: left;
+
+}
+
+.link_log:hover {
+    color: #303137 !important;    
+} 
+
+.Div1,.Div2,.Div3{
+    display:none;
+
+}
+
+#c_solitacao{
+    color: #BA3135;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 40px;
+    text-align: center;
+    display: block;
+    font-weight: bolder;
+    
+
+}
+
+#c_solitacao:hover {
+    color: #303137 !important;    
+    
+} 
+
+.form-control:focus, .form-select:focus{
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    border-color:#303137;
+
+}
+.form-control, .form-select{
+    border-color:#303137;
+}
