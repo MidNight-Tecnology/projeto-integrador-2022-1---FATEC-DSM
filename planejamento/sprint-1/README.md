@@ -60,7 +60,15 @@
 <b>Frontend</b>
 <p></p>  
 <p align="justify"> Nesta Sprint 1 foram desenvolvidas a tela de login, as interfaces de Solicitação de Serviço do cliente e do Executor, a tela inicial com cnsulta de todas as chamadas abertas pelo cliente, tela inicial do executor com todas as chamdas em andamento e página de Relatório de Serviço. Confira alguns prints explicativos:</p>
-
+  
+![CSS 1](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/print%201%20udo%20do%20css.jpeg)
+![HTML 1](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/print%201%20uso%20do%20html.jpeg)
+![CSS 2](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/print%202%20uso%20do%20css.jpeg)
+![HTML 2](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/print%201%20uso%20do%20html.jpeg)
+![HTML 3](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/print%203%20uso%20do%20html.jpeg)
+![HTML 4](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/print%204%20udo%20do%20html.jpeg)
+![PYTHON](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/print%20uso%20do%20python.png)
+  
 → [Voltar ao topo](#topo) 
   
 
@@ -68,6 +76,12 @@
 <b>Backend</b>
 <p></p>  
 <p align="justify">Para a Sprint 1 obanco de dados foi construído com todos campos correspondentes as interfaces do frontend e está funcionando, restando apenas a sua conexão com o HTML. Confira prints de exemplificação:</p>
+  
+![Modelo Conceitual](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/Modelo%20Conceitual%20%5BSP-01%5D.jpg)
+![Modelo Físico 1](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/Modelo%20Fis%C3%ADco%20-%201%20%5BSP-01%5D.png)
+![Modelo Físico 2](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/Modelo%20Fis%C3%ADco%20-%202%20%5BSP-01%5D.png)
+![Modelo Lógico](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-1/Modelo%20L%C3%B3gico%20%5BSP-01%5D.jpg)
+  
 
 → [Voltar ao topo](#topo) 
   
@@ -76,10 +90,15 @@
 <b> Organização do Repositório </b>
 <p></p>  
 <p align="justify">
-O repósitório foi pensada por sprints. Cada uma delas terá seu próprio relatório com as competências desenvolvidas pela equipe, com o decorrer do semestreão alocados na pasta "Planejamento" dnetro do repositório.</p> 
+O repósitório foi pensado por sprints. Cada uma delas terá seu próprio relatório com as competências desenvolvidas pela equipe, com o decorrer do semestreão alocados na pasta "Planejamento" dnetro do repositório.</p> 
 <p align="justify">Para organizar os demais arquivos foram criadas as pastas "Protótipo", que armazena o modelo ideal de todas as telas do Sistema, pensado pela equipe; e a pasta "Projeto", que vai armazenar todos os arquivos HTML, CSS, JS, PY, MySQL e imagens utilizadas no sistema.
 </p>
 
 → [Voltar ao topo](#topo) 
-  
+
+<span id="apfinal">
+🏁 <b>Apresentação Sprint 1</b>
+<p align="justify>Segue link para assistir a apresentação do que foi executado do projeto até o momento final da Sprint 1. Acesse AQUI. </p>
+    
+→ [Voltar ao topo](#topo)
   
