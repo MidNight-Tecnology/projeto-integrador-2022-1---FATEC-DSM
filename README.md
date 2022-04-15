@@ -34,13 +34,13 @@
 
 |       Nome       |     Função     |      GitHub
 |:----------------:|:--------------:|:-------------------------------------------------------------------:|
-|   André Felipe   | Backend   Dev  | [![GitHub Badge](github_icon.png)](https://github.com/fecosta290)   |
-|   Gustavo Messa  | Frontend  Dev  | [![GitHub Badge](github_icon.png)](https://github.com/gmessa)       |
-|   José Victor    | Backend   Dev  | [![GitHub Badge](github_icon.png)](https://github.com/HenningerJv)  |
-|   Júlio de Paula | Backend   Dev  | [![GitHub Badge](github_icon.png)](https://github.com/JulioPm142)   |
-|   Júlio Lucena   | Backend   Dev  | [![GitHub Badge](github_icon.png)](https://github.com/JulioL2001)   |
-|   Naiara Leonor  | Frontend  S.M. | [![GitHub Badge](github_icon.png)](https://github.com/nai-leonor)   |
-|   Ryan Alves     | Backend   P.O. | [![GitHub Badge](github_icon.png)](https://github.com/XLryan246)    |
+|   André Felipe   | Backend   Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/fecosta290)   |
+|   Gustavo Messa  | Frontend  Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/gmessa)       |
+|   José Victor    | Backend   Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/HenningerJv)  |
+|   Júlio de Paula | Backend   Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/JulioPm142)   |
+|   Júlio Lucena   | Backend   Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/JulioL2001)   |
+|   Naiara Leonor  | Frontend  S.M. | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/nai-leonor)   |
+|   Ryan Alves     | Backend   P.O. | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/XLryan246)    |
 
 → [Voltar ao topo](#topo)
     
