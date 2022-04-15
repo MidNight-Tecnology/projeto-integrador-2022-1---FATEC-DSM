@@ -67,7 +67,7 @@
 
 |  Sprint |  Período de Execução   |  Relatório  |
 |:-------:|:----------------------:|:-----------:|
-|SPRINT 1:| 25/03/2022 a 14/04/2022| Disponível| |
+|SPRINT 1:| 25/03/2022 a 14/04/2022| [Disponível](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/tree/main/planejamento/sprint-1) |
 |SPRINT 2:| 25/04/2022 a 15/05/2022|             |
 |SPRINT 3:| 16/05/2022 a 05/06/2022|             |
     
@@ -76,7 +76,7 @@
     
 <span id="prototipo">
 📝 <b>Protótipo</b>
-<p></p>
+<p align="justify">Acesse o documento explicativo sobre o prototipo na pasta de mesmo nome. </p>
 
 → [Voltar ao topo](#topo)
 
