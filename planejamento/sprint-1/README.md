@@ -51,7 +51,7 @@
 <span id="prototipo">
 📝 <b>Protótipo</b>
 <p></p>  
-<p> O protótipo foi pensado de acordo com as especificações dadas pelo cliente e também com o menor uso de cliques para o usuário. Acesse o documento AQUI. </p>
+<p> O protótipo foi pensado de acordo com as especificações dadas pelo cliente e também com o menor uso de cliques para o usuário. Acesse o documento na pasta Protótipo</p>
 
 → [Voltar ao topo](#topo)
   
@@ -98,7 +98,8 @@ O repósitório foi pensado por sprints. Cada uma delas terá seu próprio relat
 
 <span id="apfinal">
 🏁 <b>Apresentação Sprint 1</b>
-<p align="justify>Segue link para assistir a apresentação do que foi executado do projeto até o momento final da Sprint 1. Acesse AQUI. </p>
+<p align="justify>Segue link para assistir a apresentação do que foi executado do projeto até o momento final da Sprint 1.</p> 
+<p align="justify">Acesse: https://www.youtube.com/watch?v=mgyHPE067Ck </p>
     
 → [Voltar ao topo](#topo)
   
