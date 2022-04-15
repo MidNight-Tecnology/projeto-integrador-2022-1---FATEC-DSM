@@ -10,7 +10,9 @@
   <a href="#prototipo">Protótipo</a>                   |  
   <a href="#frontend"> Front end </a>                  |
   <a href="#backend"> Back end </a>                    |
-  <a href="#orgrepo"> Organização do Repositório </a>    
+  <a href="#orgrepo"> Organização do Repositório </a>  |
+  <a href="#apfinal"> Apresentação Final </a>                    
+
 </p>  
   
 <span id="objetivo">
