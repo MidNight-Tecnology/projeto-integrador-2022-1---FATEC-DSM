@@ -100,21 +100,21 @@
     
 #### Requisitos Funcionais
 
-|Código |                                                  Item                                                     |   Sprint   |
-|:-----:|:---------------------------------------------------------------------------------------------------------:|:----------:|
-| RF 01 | <p align="justify">O sistema só deve ser acessado por pessoas devidamente cadastradas, de acordo com a natureza das operações</p>|      2     |
-| RF 02 | <p align="justify">O Administrador do sistema, um único usuário, deve possuir acesso total às funcionalidades do sistema.</p>|      2     |
-| RF 03 | <p align="justify">Um Executor de Serviço (o sistema pode ter um ou vários executores), deve ser capaz de atender a uma solicitação podendo: a) atender a um serviço demandado (ao final o chamado é fechado e o serviço executado é descrito), b) rejeitar um serviço (o chamado é fechado mas uma justificativa para a rejeição deve ser apresentada).</p> |      2     |              
-| RF 04 | <p align="justify">Um Usuário Comum (o sistema pode ter um ou muitos usuários) deve ser capaz de abrir uma solicitação de serviço, visualizar o estado de todas as suas solicitações, da mais recente à mais antiga, e atribuir uma nota (de 0 a 10) à execução de uma de suas solicitações que foi fechada pelo executor.</p> |      2     |                                         
-| RF 05 | <p align="justify">Uma solicitação de serviço, ao ser criada, deve ser atribuída automaticamente a um dos executores de serviço cadastrados no sistema.</p> |      2     |                                      
-| RF 06 | <p align="justify">A atribuição da solicitação deve seguir um esquema de distribuição cíclico/ sequencial de acordo com o número atual de executores (ex. Se há 3 executores cadastrados (A,B,C) e são criadas 7 solicitações, sequencialmente (da 1ª à 7ª ), então os operadores A,B,C receberão as atribuições das solicitações A =[1ª , 4ª , 7ª ] , B= [2ª , 5ª ] , C= [3ª , 6ª ].</p>|      2     |                   
-| RF 07 | <p align="justify">Ao ser criada, uma solicitação/chamado deve ser atrelada ao seu criador e atribuída a um executor.</p>|      2     |
-| RF 08 | <p align="justify">Uma solicitação deve possuir: a) data/hora de criação (obrigatório). b) data/hora de fechamento (obrigatório). c) tipo: Problema de Hardware, Problema de Software ou Esclarecimento/Informação. d) uma descrição de abertura (obrigatório). e) uma imagem/arquivo (opcional). f) uma resposta ou justificativa para o fechamento (obrigatório). g) uma avaliação atribuída pelo usuário que a originou, após o fechamento (opcional).</p>|      2     |
-| RF 09 | <p align="justify">O sistema deve prover relatórios que mostrem: </p>|      3     |
-| RF 09 | <p align="justify">a) A quantidade percentual de solicitações abertas e fechadas em um determinado intervalo de tempo (uma espécie de “instantâneo” considerando um dia, uma semana ou um mês específico). </p>|      3     |
-| RF 09 |<p align="justify">b) A evolução diária da quantidade de solicitações abertas e fechadas, considerando intervalos de tempo especificados (1 semana, 15 dias, etc., utilizando datas de início e término para especificar tal intervalo). </p>|      3     |
-| RF 09 |<p align="justify">c) A avaliação média de cada executor de solicitação. </p>|      3     |
-| RF 09 |<p align="justify">d) A avaliação média global do sistema, tendo como base a nota atribuída a todos os chamados.</p> |      3     |
+|Código |                                                  Item                                                     |   Sprint   | User Stories |
+|:-----:|:---------------------------------------------------------------------------------------------------------:|:----------:|:------------:|
+| RF 01 | <p align="justify">O sistema só deve ser acessado por pessoas devidamente cadastradas, de acordo com a natureza das operações</p>|      2     |         |
+| RF 02 | <p align="justify">O Administrador do sistema, um único usuário, deve possuir acesso total às funcionalidades do sistema.</p>|      2     |            |
+| RF 03 | <p align="justify">Um Executor de Serviço (o sistema pode ter um ou vários executores), deve ser capaz de atender a uma solicitação podendo: a) atender a um serviço demandado (ao final o chamado é fechado e o serviço executado é descrito), b) rejeitar um serviço (o chamado é fechado mas uma justificativa para a rejeição deve ser apresentada).</p> |      2     |              |
+| RF 04 | <p align="justify">Um Usuário Comum (o sistema pode ter um ou muitos usuários) deve ser capaz de abrir uma solicitação de serviço, visualizar o estado de todas as suas solicitações, da mais recente à mais antiga, e atribuir uma nota (de 0 a 10) à execução de uma de suas solicitações que foi fechada pelo executor.</p> |      2     |               |                          
+| RF 05 | <p align="justify">Uma solicitação de serviço, ao ser criada, deve ser atribuída automaticamente a um dos executores de serviço cadastrados no sistema.</p> |      2     |                |                      
+| RF 06 | <p align="justify">A atribuição da solicitação deve seguir um esquema de distribuição cíclico/ sequencial de acordo com o número atual de executores (ex. Se há 3 executores cadastrados (A,B,C) e são criadas 7 solicitações, sequencialmente (da 1ª à 7ª ), então os operadores A,B,C receberão as atribuições das solicitações A =[1ª , 4ª , 7ª ] , B= [2ª , 5ª ] , C= [3ª , 6ª ].</p>|      2     |                   |
+| RF 07 | <p align="justify">Ao ser criada, uma solicitação/chamado deve ser atrelada ao seu criador e atribuída a um executor.</p>|      2     |              |
+| RF 08 | <p align="justify">Uma solicitação deve possuir: a) data/hora de criação (obrigatório). b) data/hora de fechamento (obrigatório). c) tipo: Problema de Hardware, Problema de Software ou Esclarecimento/Informação. d) uma descrição de abertura (obrigatório). e) uma imagem/arquivo (opcional). f) uma resposta ou justificativa para o fechamento (obrigatório). g) uma avaliação atribuída pelo usuário que a originou, após o fechamento (opcional).</p>|      2     |            |
+| RF 09 | <p align="justify">O sistema deve prover relatórios que mostrem: </p>|      3     |              |
+| RF 09 | <p align="justify">a) A quantidade percentual de solicitações abertas e fechadas em um determinado intervalo de tempo (uma espécie de “instantâneo” considerando um dia, uma semana ou um mês específico). </p>|      3     |                 |
+| RF 09 |<p align="justify">b) A evolução diária da quantidade de solicitações abertas e fechadas, considerando intervalos de tempo especificados (1 semana, 15 dias, etc., utilizando datas de início e término para especificar tal intervalo). </p>|      3     |                |
+| RF 09 |<p align="justify">c) A avaliação média de cada executor de solicitação. </p>|      3     |              |
+| RF 09 |<p align="justify">d) A avaliação média global do sistema, tendo como base a nota atribuída a todos os chamados.</p> |      3     |               |
 
 
 #### Requisitos Não Funcionais
@@ -127,6 +127,16 @@
     
 → [Voltar ao topo](#topo)  
     
+#### User Stories
+    
+| Código |                                 Ação                                                    |                                   Motivo                       |
+| :----: | :-------------------------------------------------------------------------------------: | :------------------------------------------------------------: |    |  US01  | Ter um sistema de solicitações de serviços                                              | Para controlar os chamados e providenciar o contato do cliente com a empresa.|
+|  US02  | Quer que as cores do sistema sejam vermelho, branco e preto.                            | Para que o sistema esteja atrelado a identidade visual da Fatec SJC.|
+|  US03  | Quer que as informações pessoais sejam solicitadas apenas uma vez                       | Para evitar a redundância de informações e repetição de campos de preenchimento.|
+|  US04  | Quer que o acesso ao sistema seja simplificado e com poucos cliques                     | Para que qualquer pessoa possa utilizar com facilidade, garantindo a melhor navegabilidade possível.|
+|  US05  | Quer que o sistema seja responsivo                                                      | Para garantir acesso via dispositivo remoto |
+
+
     
 <span id="apfinal">
 🏁 <b>Apresentação Final</b>
