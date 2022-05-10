@@ -143,11 +143,20 @@
     
 | Código |                                 Ação                                                       |                                   Motivo                  |   Sprint   |
 | :----: | :----------------------------------------------------------------------------------------: | :-------------------------------------------------------: | :----------:|
-|  US01  | <p align="justify">Ter um sistema de solicitações de serviços      </p>                   | Para controlar os chamados e providenciar o contato do cliente com a empresa.|           |
-|  US02  | <p align="justify">Quer que as cores do sistema sejam vermelho, branco e preto. </p>      | Para que o sistema esteja atrelado a identidade visual da Fatec SJC.|           |
-|  US03  | <p align="justify">Quer que as informações pessoais sejam solicitadas apenas uma vez </p> | Para evitar a redundância de informações e repetição de campos de preenchimento.|            |
-|  US04  | <p align="justify"> Quer que o acesso ao sistema seja simplificado e com poucos cliques </p> | Para que qualquer pessoa possa utilizar com facilidade, garantindo a melhor navegabilidade possível.|           |
-|  US05  | <p align="justify">       Quer que o sistema seja responsivo    </p>                       | Para garantir acesso via dispositivo remoto. |            |
+| US01   | <p align="justify">Quer que seja possível solicitar serviço e responder cliente. </p>      |   <p align="justify">Estabelecer, organizar e automatizar serviços.  </p>     | 1 |
+| US02   | <p align="justify">Quer que as cores do sistema sejam vermelho, branco e preto.   </p>     | <p align="justify">Para que o sistema esteja atrelado a identidade visual da Fatec SJC. </p> |  1   |
+| US03   | <p align="justify">Quer que as informações pessoais sejam solicitadas apenas uma vez, quando for realizado o cadastro para início no sistema. </p> |    <p align="justify">Para evitar a redundância de informações e repetição de campos de preenchimento. </p>  |     1     |
+| US04   | <p align="justify">Quer que o acesso ao sistema seja simplificado e com poucos cliques. </p>   |   <p align="justify">Para que qualquer pessoa possa utilizar com facilidade, garantindo a melhor navegabilidade possível. </p> |   1   |
+| US05   | <p align="justify">Quer que o sistema seja responsivo. </p> |   <p align="justify">Para garantir acesso via dispositivo remoto. </p>  |   3   |
+| US06   | <p align="justify">Quer que exista persistência de dados. </p> |  <p align="justify">Para armazenar informações dos usuários e serviços prestados. </p> |   1   | 
+| US07   | <p align="justify">Quer três perfis de usuários: cliente, técnico e administrador. </p>  |  <p align="justify">Para melhor distribuição de atividades e hierarquia.   |   1 e 2  |
+| US08   | <p align="justify">Quer que seja apresentada ao menos uma informação estatística.   |  <p align="justify">Para monitorar produtividade e  funcionamento do sistema.  </p> |  2  |
+| US09   | <p align="justify">Quer que seja possível consultar as solicitações de serviços em aberto, as encerradas e as recusadas. </p> |   <p align="justify">Para possibilitar acesso aos registros de forma simplificada. </p> |   2   |
+| US10   | <p align="justify">Quer que sejam apresentadas informações estatísticas, a partir dos dados armazenados, variando por período de tempo. </p> |  <p align="justify">Para mensurar produtividade e melhorar funcionamento e atendimento. </p>  |   3   |
+| US11   | <p align="justify">Ter um sistema de solicitações de serviços. </p> |  <p align="justify">Para controlar os chamados e providenciar o contato do cliente com a empresa. </p> |  3  |
+
+<br>
+</br>
 
 → [Voltar ao topo](#topo)
 
