@@ -85,6 +85,8 @@
 🖱️ <b>Tecnologias utilizadas</b>
 <p></p>
     
+![símbolos das tecnologias utilizadas](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/simbolos%20tecnologias%20utilizadas%20-%20Impulse%20Team%20-%202022-1.png)
+    
 * Figma: prototipagem
 * HTML: desenvolvimento das telas
 * CSS: estilizar elementos da linguagem de marcação HTML 
@@ -102,35 +104,14 @@
 ☑️ <b>Backlog do produto</b>
 <p></p>
     
-#### Requisitos Funcionais
-<p></p>
+![Linha do tempo por sprint](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/Linha%20do%20tempo%20por%20sprint%20-%20backlog%20do%20produto%20-%20Impulse%20Team%20-%202022-1.png)    
     
-|Código |                                                  Item                                                     |   Sprint   |   User Storie    |
-|:-----:|:---------------------------------------------------------------------------------------------------------:|:----------:|:----------------:|
-| RF 01 | <p align="justify">O sistema só deve ser acessado por pessoas devidamente cadastradas, de acordo com a natureza das operações</p>|      2     |  1, 2  e 4 |
-| RF 02 | <p align="justify">O Administrador do sistema, um único usuário, deve possuir acesso total às funcionalidades do sistema.</p>|      2     |     4     |       
-| RF 03 | <p align="justify">Um Executor de Serviço (o sistema pode ter um ou vários executores), deve ser capaz de atender a uma solicitação podendo: a) atender a um serviço demandado (ao final o chamado é fechado e o serviço executado é descrito), b) rejeitar um serviço (o chamado é fechado mas uma justificativa para a rejeição deve ser apresentada).</p> |      2     |    1, 4 e 9   |          
-| RF 04 | <p align="justify">Um Usuário Comum (o sistema pode ter um ou muitos usuários) deve ser capaz de abrir uma solicitação de serviço, visualizar o estado de todas as suas solicitações, da mais recente à mais antiga, e atribuir uma nota (de 0 a 10) à execução de uma de suas solicitações que foi fechada pelo executor.</p> |      2     |    1 e 9    |                                    
-| RF 05 | <p align="justify">Uma solicitação de serviço, ao ser criada, deve ser atribuída automaticamente a um dos executores de serviço cadastrados no sistema.</p> |      2     |                                     
-| RF 06 | <p align="justify">A atribuição da solicitação deve seguir um esquema de distribuição cíclico/ sequencial de acordo com o número atual de executores (ex. Se há 3 executores cadastrados (A,B,C) e são criadas 7 solicitações, sequencialmente (da 1ª à 7ª ), então os operadores A,B,C receberão as atribuições das solicitações A =[1ª , 4ª , 7ª ] , B= [2ª , 5ª ] , C= [3ª , 6ª ].</p>|      2     |                   
-| RF 07 | <p align="justify">Ao ser criada, uma solicitação/chamado deve ser atrelada ao seu criador e atribuída a um executor.</p>|      2     |              
-| RF 08 | <p align="justify">Uma solicitação deve possuir: a) data/hora de criação (obrigatório). b) data/hora de fechamento (obrigatório). c) tipo: Problema de Hardware, Problema de Software ou Esclarecimento/Informação. d) uma descrição de abertura (obrigatório). e) uma imagem/arquivo (opcional). f) uma resposta ou justificativa para o fechamento (obrigatório). g) uma avaliação atribuída pelo usuário que a originou, após o fechamento (opcional).</p>|      2     |            
-| RF 09 | <p align="justify">O sistema deve prover relatórios que mostrem: </p>|      3     |              
-| RF 09 | <p align="justify">a) A quantidade percentual de solicitações abertas e fechadas em um determinado intervalo de tempo (uma espécie de “instantâneo” considerando um dia, uma semana ou um mês específico). </p>|      3     |                 
-| RF 09 |<p align="justify">b) A evolução diária da quantidade de solicitações abertas e fechadas, considerando intervalos de tempo especificados (1 semana, 15 dias, etc., utilizando datas de início e término para especificar tal intervalo). </p>|      3     |                
-| RF 09 |<p align="justify">c) A avaliação média de cada executor de solicitação. </p>|      3     |              
-| RF 09 |<p align="justify">d) A avaliação média global do sistema, tendo como base a nota atribuída a todos os chamados.</p> |      3     |               
-
+![Requisitos Funcionais e não-funcionais 1](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/RFs%201%20-%20Impulse%20Team%20-%202022-1.png)
+![Requisitos Funcionais e não-funcionais 2](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/RFs%202%20-%20Impulse%20Team%20-%202022-1.png)
+![Requisitos Funcionais e não-funcionais 3](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/RFs%203%20-%20Impulse%20Team%20-%202022-1.png)
+![Requisitos Funcionais e não-funcionais 4](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/RFs%204%20-%20Impulse%20Team%20-%202022-1.png)
 <br>
 </br>    
-    
-#### Requisitos Não Funcionais
-
-| Código |                                                         Item                                                                           |   Sprint   |
-| :----: | :-------------------------------------------------------------------------------------------------------------------------------------:| :--------: |
-| RFN 01 | <p align="justify">Os requisitos funcionais RF.9 a-b) podem ser implementados utilizando gráficos. </p>                                |      3     |
-| RFN 02 | <p align="justify">Os requisitos funcionais RF.9 c-d) podem ser implementados utilizando metáforas ou outros recursos gráficos pertinentes (ex. emojis).</p>  |     3     |
-    
 → [Voltar ao topo](#topo)  
 
 <br>    
@@ -141,16 +122,7 @@
 📱 <b>User Stories</b>
 <p></p>
     
-| Código |                                 Ação                                                       |                                   Motivo                  |   Sprint   |
-| :----: | :----------------------------------------------------------------------------------------: | :-------------------------------------------------------: | :----------:|
-| US01   | <p align="justify">Quer que seja possível solicitar serviço e responder cliente. </p>      |   <p align="justify">Estabelecer, organizar e automatizar serviços.  </p>     |      2       | 
-| US02   | <p align="justify">Quer que as informações pessoais sejam solicitadas apenas uma vez, quando for realizado o cadastro para início no sistema. </p> |    <p align="justify">Para evitar a redundância de informações e repetição de campos de preenchimento. </p>  |     2     | 
-| US03   | <p align="justify">Quer que o acesso ao sistema seja simplificado e com poucos cliques. </p>   |   <p align="justify">Para que qualquer pessoa possa utilizar com facilidade, garantindo a melhor navegabilidade possível. </p> |   2   |
-| US04   | <p align="justify">Quer três perfis de usuários: cliente, técnico e administrador. </p>  |  <p align="justify">Para melhor distribuição de atividades e hierarquia.   |   2  |  
-| US05   | <p align="justify">Quer que seja apresentada ao menos uma informação estatística.   |  <p align="justify">Para monitorar produtividade e  funcionamento do sistema.  </p> |  2  |
-| US06   | <p align="justify">Quer que seja possível consultar as solicitações de serviços em aberto, as encerradas e as recusadas. </p> |   <p align="justify">Para possibilitar acesso aos registros de forma simplificada. </p> |   2   |
-| US07   | <p align="justify">Quer que sejam apresentadas informações estatísticas, a partir dos dados armazenados, variando por período de tempo. </p> |  <p align="justify">Para mensurar produtividade e melhorar funcionamento e atendimento. </p>  |   2   |
-| US08   | <p align="justify">Ter um sistema de solicitações de serviços. </p> |  <p align="justify">Para controlar os chamados e providenciar o contato do cliente com a empresa. </p> |  2  |
+![fichas de user stories de 01 a 07](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/User%20stories%20-%20Impulse%20Team%20-%202022-1.png)
 
 <br>
 </br>
@@ -177,9 +149,7 @@
 
 |       Nome       |     Função     |      GitHub
 |:----------------:|:--------------:|:-------------------------------------------------------------------:|
-|   André Felipe   | Backend   Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/fecosta290)   |
 |   Gustavo Messa  | Frontend  Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/gmessa)       |
-|   José Victor    | Backend   Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/HenningerJv)  |
 |   Júlio de Paula | Backend   Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/JulioPm142)   |
 |   Júlio Lucena   | Backend   Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/JulioL2001)   |
 |   Naiara Leonor  | Frontend  S.M. | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/nai-leonor)   |
