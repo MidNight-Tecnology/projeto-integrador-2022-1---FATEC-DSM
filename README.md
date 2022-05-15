@@ -1,6 +1,6 @@
 <br id="topo">
 
-![Logo da equipe Impulse Team](https://user-images.githubusercontent.com/101960339/159195912-7c688cba-336c-4172-8952-970e5a244a30.jpeg)
+![Logo da equipe Impulse Team](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/Impulse%20Team%20logo.png)
 
 <p align="center">
     <a href="#apresentação">Apresentação do Time</a>       |
