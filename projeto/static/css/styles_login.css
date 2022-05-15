@@ -34,57 +34,14 @@ h6{
     font-size: 25px;   
     font-family: Arial;
     font-weight: bold;
-    
     display: block;
-    border: none !important;
-    outline: none !important;
     text-decoration: none;
        
-}
-
-#btn-n-cpf, #btn-f-consulta{
-    font-size: 12pt;
 }
 
 .btn:hover {
     background-color: #303137 !important;    
 
-} 
-
-.link_log{
-    text-decoration: none;
-    color:#BA3135 ;
-    font-family: Arial;
-    font-weight: bold;
-    display:block;
-    float: left;
-
-}
-
-.link_log:hover {
-    color: #303137 !important;    
-} 
-
-.Div1,.Div2,.Div3{
-    display:none;
-
-}
-
-#c_solitacao{
-    color: #BA3135;
-    text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 40px;
-    text-align: center;
-    display: block;
-    font-weight: bolder;
-    
-
-}
-
-#c_solitacao:hover {
-    color: #303137 !important;    
-    
 } 
 
 .form-control:focus, .form-select:focus{
@@ -95,4 +52,13 @@ h6{
 }
 .form-control, .form-select{
     border-color:#303137;
+}
+
+#link_cadastro {
+    color: #303137;
+    text-decoration: none;
+}
+
+#link_cadastro:hover{
+    color: #BA3135 !important; 
 }

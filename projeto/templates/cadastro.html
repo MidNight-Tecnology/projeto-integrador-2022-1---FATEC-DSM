@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <title>Cadastro</title>
+    
+	  <link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="http://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=fJzj1nvfjh-RObzx3RO32pGaHvr3XP9IOygoZW1P80tAKMuvdKIGhUpzC6ntZNPEwPBQ2rYEs3r7z2l9wm0D78FImOimgcRFPiu3cHw3fuaSE2wDaM0cNNirkj5E1BX1vpeQRzhkcZbS6wqEmyWvxetyswfiTAPhLcgyAf37FTLnGjrOZFOWn3WdDUkQ1iGi" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="http://me.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cDovLzE5Mi4xNjguMTAwLjQ6NDQ0NC9hcGkvZnMvc3RvcmFnZS9lbXVsYXRlZC8wL1doYXRzQXBwL01lZGlhL1doYXRzQXBwJTIwRG9jdW1lbnRzL3NvbGljaXRhY2FvX2NsaWVudGUuaHRtbD9hdHRhY2htZW50"/><script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+
+<content id="fundo">
+    <br>
+    <h1>CADASTRO</h1> 
+{% block  conteudo %}   
+    <form action="/cadastrar" method="POST" style="margin-bottom: 60px;">
+
+      <h6 class="form-sol">Nome:</h6>
+      <div class="form-group">
+      <input type="text" name="nome" class="form-control" id="SclienteNome" required>
+      </div><br>
+
+      <h6 class="form-sol">Email:</h6>
+      <div class="form-group">
+      <input type="email" name="email" class="form-control" id="SclienteNome" required>
+      </div><br>
+
+      <h6 class="form-sol">Telefone:</h6>
+      <div class="form-group">
+      <input type="number" name="telefone" class="form-control" id="SclienteNome" required>
+      </div><br>
+
+      <h6 class="form-sol">Senha:</h6>
+      <div class="form-group">
+      <input type="password" name="senha" class="form-control" id="SclienteEmail" required>
+      </div><br>
+
+      <h6 class="form-sol">Confirme sua senha:</h6>
+      <div class="form-group">
+      <input type="password" name="senha2" class="form-control" id="SclienteEmail" required>
+      </div><br>
+
+        <div class="btn-solicita">
+          <button id="btncadastro" type="submit"class="btn btn-primary btn-salvar" href="{{ url_for('login') }}" role="button" 
+          style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;"  
+          >Cadastrar</button><br><br>
+        </div>
+      
+        <div class="btn-sair">
+          <a id="btn-sair" class="btn btn-primary btn-sair" href="{{ url_for('login') }}" role="button" 
+          style="background-color:#BA3135; border: 0; box-shadow: 0 0 0 0; float: right; margin-right: 10px;"  
+          >Sair</a>
+        </div>
+      </form>
+
+{% with erro = get_flashed_messages() %}
+        {% if erro %}
+             {% for msg in erro %}
+             <div class="alert alert-secondary" style="text-align: center;"> {{msg}} </div>
+             {% endfor %}
+        {% endif %}
+      {% endwith %}  
+  
+{% endblock %}
+
+          <br><h6 id="termo" style="font-size:14px;"> Ao clicar em cadastrar você está concordando com o armazenamento de suas informações pessoais para acessar o sistema.</h6>
+
+  
+    
+</content>
+
+</body>
+
+</html>

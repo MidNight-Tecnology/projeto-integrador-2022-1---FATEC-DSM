@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <title>Consulta de Solicitações </title>
+
+  <link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light " navbar-dark" style="background-color:#BA3135;">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('consulta_executor') }}">Responder Solicitação</a>  
+        </li> 
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('consulta_executor2') }}">Solicitações Encerradas </a>  
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('solicitacao_executor') }}">Solicitar Serviço</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('consulta_executor1') }}">Minhas Solicitações</a>  
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('altera_exe') }}" >Alterar Dados </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}" >Sair</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <content id="fundo">
+    <br>
+    <h1>SOLICITAÇÕES </h1><br>
+
+
+    {% for user in Details %}
+    <form action="/visualizar_solicitacao_exe2/{{user.0}}" method="POST"> 
+          
+          
+              <h6 class="form-sol">Tipo de Problema:</h6>
+              <div class="form-group">
+                <input type="text" name="assunto" class="form-control" id="srcAssunto" required readonly placeholder="{{ user[5] }} ">
+              </div><br>
+
+              <h6 class="form-sol">Descrição:</h6>
+              <div class="form-group">
+                <textarea name="descricao" required readonly style="resize: none;" class="form-control" id="srcDesc"
+                  rows="7" placeholder="{{ user[6] }}"></textarea>
+              </div><br>
+          
+              <h6 class="form-sol">Diagnóstico dado pelo técnico:</h6>
+              <div class="form-group">
+                <textarea name="diagnostico" required readonly style="resize: none;" class="form-control" id="srcDiag"
+                  rows="7" placeholder="{{ user[10] }}"></textarea>
+              </div><br>
+
+              <div class="btn-sair">
+                <a id="btnsair" type="submit"class="btn btn-primary btn-salvar" href="{{ url_for('consulta_executor2') }}" role="button" 
+                style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;" 
+                >Sair</a><br><br>
+              </div>
+          {% endfor %}  
+        </form>
+        </div>
+      </div>
+    </div>
+    
+  </content>
+
+
+
+
+</body>
+
+</html>

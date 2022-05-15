@@ -1,0 +1,115 @@
+<!doctype html>
+<head>
+  <link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=9wnoC38c4hHlmi19KvTxJIe1gZRlaJtjZreVNrJEyvcVDupuIOQnkENemqkOjME0Z4OSsw-B2qb3wYTw5Id-3wDbQtYIXlCLy5UANXlDUsf2qv0hSP5atIyaZZZ5SMKwcEokrMohnnnRiiQN750qjg" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://me.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jZG4uZGlzY29yZGFwcC5jb20vYXR0YWNobWVudHMvOTYxMzU5NjQ0MDU0MzkyODQyLzk3NDgxMzQ5NDkzMzMzMjA4OC9ncmFmaWNvcy5odG1s"/><script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../static/css/styles.css">
+  <title>Estatísticas</title>
+  
+  <div class="graf">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    
+
+      google.load('visualization', '1', {'packages':['corechart']});
+      
+
+      google.setOnLoadCallback(drawChart);
+      
+
+      function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'Number of frobnications');
+        data.addRows([
+                {%- for dayname, num in data %}
+                ['{{ dayname }}', {{ num }}],
+                {%- endfor %}
+        ]);
+
+        var options = {
+                title: 'GRÁFICO DE SITUACÃO DAS SOLICITAÇÕES',
+                height: 500,
+                colors: ['#C66F72','#BA3135', '#872326'],
+                width: 500,
+                isStacked: 'percent',
+                hAxis: {minValue: 0},
+                backgroundColor: 'none',
+                titleTextStyle: { color: 'black',
+                fontName: 'Arial',
+                fontSize: '500px',
+                bold: 'true'
+                },
+                legend: 'top',
+                // italic: <boolean> }
+                // left: auto
+                // backgroundColor.stroke: '#666'         
+            }
+
+
+        var chart = new google.visualization.PieChart(
+                document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </div>
+
+
+</head>
+
+
+
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light " navbar-dark style="background-color:#BA3135;">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link"  href="{{ url_for('solicitacao_administrador') }}">Solicitar Serviço</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('consulta_administrador1') }}">Minhas Solicitações </a>  
+        </li>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('consulta_administrador3') }}">Responder Solicitação </a>  
+      </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('consulta_administrador') }}">Solicitações Encerradas </a>  
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  href="{{ url_for('config_adm') }}">Configurações de Usuários</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('grafico') }}">Estatísticas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Sair</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+  <h1>ESTATÍSTICAS</h1>
+
+
+
+    <div id="content" style="margin-top: -20px;">
+      <div id="chart_div" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center"></div>
+    </div>
+
+{% block  conteudo %}   
+    {% with resp = get_flashed_messages() %}
+       {% if resp %}
+            {% for msg in resp %}
+                 <div class="alert alert-danger" style="text-align: center;"> {{msg}} </div>
+            {% endfor %}
+       {% endif %}
+     {% endwith %}  
+ 
+{% endblock %} 
+
+
+
+

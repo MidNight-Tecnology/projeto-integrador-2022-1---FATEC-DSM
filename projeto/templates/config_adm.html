@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <title>Configurações de Usuários</title>
+    
+	  <link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light " navbar-dark style="background-color:#BA3135;">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link"  href="{{ url_for('solicitacao_administrador') }}">Solicitar Serviço</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('consulta_administrador1') }}">Minhas Solicitações </a>  
+        </li>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('consulta_administrador3') }}">Responder Solicitação </a>  
+      </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('consulta_administrador') }}">Solicitações Encerradas </a>  
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  href="{{ url_for('config_adm') }}">Configurações de Usuários</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('grafico') }}">Estatísticas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Sair</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+        <br>
+        <h1>CONFIGURAÇÕES DE USUÁRIOS </h1><br>
+        
+     <table class="table table-bordered" style="border: 5px; text-align: center;">
+          <thead class="thead-dark">
+            <content id="fundo">
+
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Email</th>
+              <th scope="col">Cargo</th>
+              
+              
+              <th scope="col">Mudar Cargo</th>
+            </tr>
+          </thead>
+
+        
+        {% for user in usu %}
+        
+
+          <tbody>
+            <tr>
+              <td> {{ user[1] }} </td>
+              <td> {{ user[2] }} </td>
+              <td> {{ user[6] }}  </td>
+
+            <form action="/bt_mcargo/{{ user[0] }}" method="POST">
+              <td ><button type="submit" >Mudar</button></td>
+            </form>
+            </tr>
+          </tbody>
+        {% endfor %}
+        
+
+     </table> <br>
+     {% block  conteudo %}   
+     {% with resp = get_flashed_messages() %}
+        {% if resp %}
+             {% for msg in resp %}
+                <div class="alert alert-danger" style="text-align: center;"> {{msg}} </div>
+             {% endfor %}
+        {% endif %}
+      {% endwith %}  
+  
+{% endblock %}  
+     <br><br><br><br>
+    </content>
+
+</body>
+
+</html>
+
+

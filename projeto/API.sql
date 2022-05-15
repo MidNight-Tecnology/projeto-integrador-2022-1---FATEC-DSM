@@ -1,58 +1,93 @@
-create database API;
-use API;
-
 -- -----------------------------------------------------
--- Table chamados
+-- Criação e Utilização de Banco de Dados
 -- -----------------------------------------------------
 
-create table chamados(
-	id_chamado int not null primary key auto_increment,
-	data_de_inicio timestamp,
-	data_de_termino timestamp,
--- usuario
-    nome_usuario varchar(40),
-    email_usuario VARCHAR(45),
-    id_usuario int, -- FK USUARIO
-    telefone_usuario varchar (11),
-    assunto varchar (50), -- tipo problema
-    descricao varchar (850),
--- executor
-	id_executor int, -- FK EXECUTOR
-	resposta_chamado varchar(850),
-    aceitar_chamado BINARY(1)
+Create Database API;
+Use API;
+
+-- -----------------------------------------------------
+-- Tabela dos Chamados
+-- -----------------------------------------------------
+
+Create Table chamados(
+-- Chamado	
+    id_chamado Int Not Null Primary Key Auto_Increment, -- Id dos Chamados;
+	data_de_inicio Datetime, -- Data de ínicio;
+	data_de_termino Datetime, -- Data de Fechamento;
+-- Cliente
+    id_usuario Int, -- FK Usuários;
+    nome_usuario Varchar(100),
+    assunto Varchar(50), Check (assunto = 'Problema de Hardware' or assunto = 'Problema de Software' or assunto = 'Esclarecimento/Informação'), -- Tipos de problema;
+    descricao Varchar(850), -- Descrição de Abertura;
+	imaarq Longblob,
+	avaliacao Int(2) Check (avaliacao = 10 or avaliacao = 9 or avaliacao = 8 or avaliacao = 7 or avaliacao = 6 or avaliacao = 5 or avaliacao = 4 or avaliacao = 3 or avaliacao = 2 or avaliacao = 1), -- Avaliação por Emote 😁😀😐😢😭;
+-- Técnico
+	id_usuario_resp Int, -- FK Usuários;
+	resposta_chamado Varchar(850), -- Resposta do Chamado;
+    estado_chamado Varchar(25) Check (estado_chamado = 'Finalizado'  or estado_chamado = 'Rejeitado' or estado_chamado = 'Processando'), -- Aceitação ou não de Serviço.
+    nome_resposta Varchar(100)
 );
 
 -- -----------------------------------------------------
--- Table usuario
+-- Table dos Usuários
 -- -----------------------------------------------------
 
-create table usuario (
-	id_usuario int not null primary key auto_increment,
-	cpf_usuario varchar (11),
-    id_chamado int,
-    Foreign Key(id_chamado) references chamados(id_chamado)
-);
--- -----------------------------------------------------
--- Table executor
--- -----------------------------------------------------
-
-create table executor(
-	id_executor int not null primary key auto_increment,
-	cpf_executor varchar (11),
-	id_chamado int,
-    Foreign Key(id_chamado) references chamados(id_chamado)
+Create Table usuarios (
+	id_usuario Int Not Null Primary Key Auto_Increment, -- Id dos Usuários;
+	nome Varchar(100), -- Nome dos Usuários;
+    email Varchar(200) Unique, -- Email dos Usuários;
+	senha Varchar(100), -- Senha dos Usuários;
+    genero Char(1) Check (genero = 'F' or genero = 'M'), -- Gênero do Usuário;
+    telefone Varchar(11), -- Telefone dos Usuários;
+    classe Varchar(15) Check (classe = 'Administrador' or classe = 'Cliente' or classe = 'Técnico'), -- Classe dos Usuários;
+    atividade Varchar(10) Check (atividade = 'Ativo' or atividade = 'Inativo') -- Atividade do Usuário;
 );
 
--- FK ids
-ALTER TABLE chamados ADD 
-foreign KEY (id_usuario) 
-REFERENCES usuario (id_usuario);
+-- -----------------------------------------------------
+-- Alterações de Tabela
+-- -----------------------------------------------------
 
-ALTER TABLE chamados ADD 
-foreign KEY (id_executor) 
-REFERENCES executor (id_executor);
+Alter Table chamados Add constraint fk_usu_cham
+Foreign Key (id_usuario) 
+References usuarios (id_usuario);
+
+Alter Table chamados Add constraint fk_usu_cham_resp
+Foreign Key (id_usuario_resp) 
+References usuarios (id_usuario);
+
+-- -----------------------------------------------------
+-- Inserção e Seleção de Dados na Tabela
+-- -----------------------------------------------------
 
 
-insert into usuario (cpf_usuario) values ('12345678912');
-select * from usuario;
+Insert Into usuarios (nome, email, telefone, senha, classe, atividade) values ('ADM','adm@gmail.com',12996126985,'adm','Administrador','Ativo');
+
+Select * From chamados;
+Select * From usuarios;
+
+-- -----------------------------------------------------
+-- Conferindo as informações dos Dados das Tabelas
+-- -----------------------------------------------------
+
+desc chamados;
+
+select * from information_schema.table_constraints
+where table_name='chamados';
+
+select * from information_schema.table_constraints
+where table_name='usuarios';
+
+-- -----------------------------------------------------
+-- Deletando o Banco de Dados
+-- -----------------------------------------------------
+
+ -- drop database API;
+-- drop table chamados;
+
+select * from chamados order by data_de_inicio desc;
+
+
+ 
+
+
 

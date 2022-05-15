@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Login</title>
+    
+	  <link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+   
+    <link rel="stylesheet" href="../static/css/styles_login.css">
+</head>
+<body>
+<content id="fundo">
+  <main class="login">
+    <div class="login_container" style="height: 315px;">
+
+
+
+{% block  conteudo %}  
+ 
+        <form action="/login" method="POST">
+          <h6 class="form-sol">Login:</h6>       
+          <input  type="email" name="email" class="form-control" id="div2" required ><br>  
+
+          <h6 class="form-sol">Senha:</h6>       
+          <input  type="password" name="senha" class="form-control" id="div2" required ><br>       
+          <button name="btentrar" class="btn btn-primary" role="button"  
+          style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0; float: right;">Entrar</button> 
+
+
+        
+    {% with erro = get_flashed_messages() %}
+      {% if erro %}
+           {% for msg in erro %}
+             <div style="color: #BA3135;"> {{msg}} </div>
+           {% endfor %}
+      {% endif %}
+    {% endwith %}  
+
+{% endblock %}
+          
+          
+         <a id="link_cadastro" href="{{ url_for('cadastro') }}"  >
+            Faça seu cadastro 
+         </a>
+  
+        </form>
+   
+    </div>
+
+        
+</main>
+</content>
+</body>
+
+</html>
