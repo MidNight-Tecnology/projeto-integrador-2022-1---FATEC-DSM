@@ -20,6 +20,7 @@
 <span id="entrega">
 🎯 <b>Entregas de valor</b>
 <p></p>
+<p> ✔️ Tela de login. </p> 	
 <p> ✔️ Chamados enviados e respondidos, vinculados ao criador, ao técnico e com acesso total por parte do administrador do sistema. </p> 
 <p> ✔️ Geração de relatório sobre os chamados. </p> 
 
@@ -89,8 +90,9 @@ Depois da realização desses passos o sistema já está pronto para ser utiliza
 
 Login Administrador:
 Alteração dos dados de acesso do administrador devem ser feitas diretamente no banco de dados.
-Login padrão:
+	
 ```bash
+Login padrão:	
 	Login: adm@gmail.com
 	Senha: adm
 ```
