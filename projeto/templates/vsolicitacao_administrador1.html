@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link rel="shortcut icon" href="../static/img/logo2.ico" type="image/x-icon">
 
   <title>Consulta de Solicitações </title>
 
@@ -13,37 +13,30 @@
   <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../static/css/styles.css">
+  <link rel="stylesheet" href="../static/css/styles_menu.css">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light " navbar-dark style="background-color:#BA3135;">
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link"  href="{{ url_for('solicitacao_administrador') }}">Solicitar Serviço</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ url_for('consulta_administrador1') }}">Minhas Solicitações </a>  
-        </li>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url_for('consulta_administrador3') }}">Responder Solicitação </a>  
-      </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ url_for('consulta_administrador') }}">Solicitações Encerradas </a>  
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"  href="{{ url_for('config_adm') }}">Configurações de Usuários</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('grafico') }}">Estatísticas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('login') }}">Sair</a>
-        </li>
+  <header>
+    <nav>
+      <div class="mobile-menu">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+      </div>
+      <ul class="nav-list">
+        <li><a href="{{ url_for('solicitacao_administrador') }}">Solicitar serviço</a></li>
+        <li><a href="{{ url_for('consulta_administrador1') }}">Minhas solicitações</a></li>
+        <li><a href="{{ url_for('consulta_administrador3') }}">Responder solicitações</a></li>
+        <li><a href="{{ url_for('consulta_administrador') }}">Solicitações encerradas</a></li>
+        <li><a href="{{ url_for('config_adm') }}">Configurações de usuários</a></li>
+        <li><a href="{{ url_for('grafico') }}">Estatísitcas</a></li>
+        <li><a href="{{ url_for('login') }}">Sair</a></li>
       </ul>
-    </div>
-  </nav>
+    </nav>
+  </header>
+  <script src="../static/js/menu_api.js"></script>
+
 
   <content id="fundo">
     <br>
@@ -65,7 +58,7 @@
                   rows="7" placeholder="{{ user[6] }}"></textarea>
               </div><br>
           
-              <h6 class="form-sol">Diagnóstico dado pelo técnico:</h6>
+              <h6 class="form-sol">Resposta:</h6>
               <div class="form-group">
                 <textarea name="diagnostico" required readonly style="resize: none;" class="form-control" id="srcDiag"
                   rows="7" placeholder="{{ user[10] }}"></textarea>
@@ -76,6 +69,12 @@
                 style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;" 
                 >Sair</a><br><br>
               </div>
+
+              <div class="btn-aval">
+                <a id="btnaval" type="submit" class="btn btn-primary btn-salvar" href="/avaliaradm/{{user[0]}}"
+                  role="button" style="background-color:#1f9b44; border: none; box-shadow: 0 0 0 0;">Avaliar</a><br><br>
+              </div>
+          
           {% endfor %}  
         </form>
         </div>

@@ -4,7 +4,7 @@
 
 Create Database API;
 Use API;
-
+-- drop database API;
 -- -----------------------------------------------------
 -- Tabela dos Chamados
 -- -----------------------------------------------------
@@ -20,12 +20,14 @@ Create Table chamados(
     assunto Varchar(50), Check (assunto = 'Problema de Hardware' or assunto = 'Problema de Software' or assunto = 'Esclarecimento/Informação'), -- Tipos de problema;
     descricao Varchar(850), -- Descrição de Abertura;
 	imaarq Longblob,
-	avaliacao Int(2) Check (avaliacao = 10 or avaliacao = 9 or avaliacao = 8 or avaliacao = 7 or avaliacao = 6 or avaliacao = 5 or avaliacao = 4 or avaliacao = 3 or avaliacao = 2 or avaliacao = 1), -- Avaliação por Emote 😁😀😐😢😭;
+	avaliacao Int(2) Check (avaliacao = 10 or avaliacao = 9 or avaliacao = 8 or avaliacao = 7 or avaliacao = 6 or avaliacao = 5 or avaliacao = 4 or avaliacao = 3 or avaliacao = 2 or avaliacao = 1 or avaliacao = 0), -- Avaliação por Emote 😁😀😐😢😭;
+     -- comentario da avaliaçao :)
 -- Técnico
 	id_usuario_resp Int, -- FK Usuários;
 	resposta_chamado Varchar(850), -- Resposta do Chamado;
     estado_chamado Varchar(25) Check (estado_chamado = 'Finalizado'  or estado_chamado = 'Rejeitado' or estado_chamado = 'Processando'), -- Aceitação ou não de Serviço.
-    nome_resposta Varchar(100)
+    nome_resposta Varchar(100),
+    coment_aval varchar (100)
 );
 
 -- -----------------------------------------------------
@@ -40,7 +42,8 @@ Create Table usuarios (
     genero Char(1) Check (genero = 'F' or genero = 'M'), -- Gênero do Usuário;
     telefone Varchar(11), -- Telefone dos Usuários;
     classe Varchar(15) Check (classe = 'Administrador' or classe = 'Cliente' or classe = 'Técnico'), -- Classe dos Usuários;
-    atividade Varchar(10) Check (atividade = 'Ativo' or atividade = 'Inativo') -- Atividade do Usuário;
+    atividade Varchar(10) Check (atividade = 'Ativo' or atividade = 'Inativo'), -- Atividade do Usuário;
+    contador Int Unique -- Contador ciclico
 );
 
 -- -----------------------------------------------------
@@ -81,7 +84,7 @@ where table_name='usuarios';
 -- Deletando o Banco de Dados
 -- -----------------------------------------------------
 
- -- drop database API;
+-- drop database API;
 -- drop table chamados;
 
 select * from chamados order by data_de_inicio desc;

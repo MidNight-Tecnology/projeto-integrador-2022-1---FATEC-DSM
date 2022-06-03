@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="shortcut icon" href="../static/img/logo2.ico" type="image/x-icon">
     
     <title>Minhas Solicitações </title>
     
@@ -13,36 +13,29 @@
     <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../static/css/styles.css">
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light " navbar-dark style="background-color:#BA3135;">
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link"  href="{{ url_for('solicitacao_administrador') }}">Solicitar Serviço</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ url_for('consulta_administrador1') }}">Minhas Solicitações </a>  
-        </li>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url_for('consulta_administrador3') }}">Responder Solicitação </a>  
-      </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ url_for('consulta_administrador') }}">Solicitações Encerradas </a>  
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"  href="{{ url_for('config_adm') }}">Configurações de Usuários</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('grafico') }}">Estatísticas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('login') }}">Sair</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    <link rel="stylesheet" href="../static/css/styles_menu.css">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="mobile-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <ul class="nav-list">
+          <li><a href="{{ url_for('solicitacao_administrador') }}">Solicitar serviço</a></li>
+          <li><a href="{{ url_for('consulta_administrador1') }}">Minhas solicitações</a></li>
+          <li><a href="{{ url_for('consulta_administrador3') }}">Responder solicitações</a></li>
+          <li><a href="{{ url_for('consulta_administrador') }}">Solicitações encerradas</a></li>
+          <li><a href="{{ url_for('config_adm') }}">Configurações de usuários</a></li>
+          <li><a href="{{ url_for('grafico') }}">Estatísitcas</a></li>
+          <li><a href="{{ url_for('login') }}">Sair</a></li>
+        </ul>
+      </nav>
+    </header>
+    <script src="../static/js/menu_api.js"></script>
+  
 
         <br>
         <h1>MINHAS SOLICITAÇÕES </h1><br>
@@ -73,8 +66,8 @@
         {% for user in exe1 %}     
           <tbody>
             <tr>
-              <td> {{ user[1] }}  </td>
-              <td> {{ user[2] }}  </td>
+              <td> {{ user[1].strftime('%d/%m/%y - %H:%M:%S') }}  </td>
+              <td> {{ user[2].strftime('%d/%m/%y - %H:%M:%S') if user[2] }}  </td>
               <td> {{ user[5] }} </td>
               <td> {{ user[11]}}</td>
             <form action="/abrir_solicitacao_adm1/{{user.0}}" method="GET">

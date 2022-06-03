@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Avaliação do Sistema</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="shortcut icon" href="../static/img/logo2.ico" type="image/x-icon">
+  <style>
+    /* ************FEEDBACK************ */
+
+
+
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html,
+    body {
+      display: grid;
+      height: 100%;
+      place-items: center;
+      text-align: center;
+      background: rgb(255, 255, 255);
+    }
+
+    .container {
+      position: relative;
+      width: 1000px;
+      background: rgb(26, 26, 25);
+      padding: 50px 50px;
+      border: 1px solid rgb(184, 24, 24);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .container .post {
+      display: none;
+    }
+
+    .container .text {
+      font-size: 25px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .container .edit {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      font-size: 16px;
+      color: #666;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .container .edit:hover {
+      text-decoration: underline;
+    }
+
+    .container .star-widget input {
+      display: none;
+    }
+
+    .star-widget label {
+      /*contorno da estrela*/
+      font-size: 40px;
+      color: #444;
+      padding: 10px;
+      float: right;
+      transition: all 0.2s ease;
+    }
+
+    input:not(:checked)~label:hover,
+    input:not(:checked)~label:hover~label {
+      color: #fd4;
+    }
+
+    input#rate-0:not(:checked)~label:hover,
+    input#rate-0:not(:checked)~label:hover~label {
+      color: rgb(219, 47, 28);
+    }
+
+    input:checked~label {
+      color: #fd4;
+    }
+
+    input#rate-10:checked~label {
+      /*nota maxima que brilha*/
+      color: #fe7;
+      text-shadow: 0 0 20px #952;
+    }
+    input#rate-0:checked~label {
+      /*nota maxima que brilha*/
+      color: rgb(222, 39, 39);
+      text-shadow: 0 0 20px #952;
+    }
+
+    form #rate-10:checked~form header:before {
+      content: " NOTA 10";
+    }
+
+    form #rate-9:checked~form header:before {
+      content: "NOTA 9 ";
+    }
+
+    form #rate-8:checked~form header:before {
+      content: " NOTA 8";
+    }
+
+    form #rate-7:checked~form header:before {
+      content: "NOTA 7";
+    }
+
+    form #rate-6:checked~form header:before {
+      content: "NOTA 6";
+    }
+
+
+
+    form #rate-5:checked~form header:before {
+      content: " NOTA 5";
+    }
+
+    form #rate-4:checked~form header:before {
+      content: "NOTA 4 ";
+    }
+
+    form #rate-3:checked~form header:before {
+      content: " NOTA 3";
+    }
+
+    form #rate-2:checked~form header:before {
+      content: "NOTA 2";
+    }
+
+    form #rate-1:checked~form header:before {
+      content: "NOTA 1";
+    }
+    form #rate-0:checked~form header:before {
+      content: "NOTA 0";
+    }
+
+
+    .container form {
+      display: none;
+    }
+
+    input:checked~form {
+      display: block;
+    }
+
+    form header {
+      width: 100%;
+      font-size: 25px;
+      color: #fe7;
+      font-weight: 500;
+      margin: 5px 0 20px 0;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    form .textarea {
+      height: 100px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    form .textarea textarea {
+      height: 100%;
+      width: 100%;
+      outline: none;
+      color: #eee;
+      border: 1px solid #333;
+      background: #222;
+      padding: 10px;
+      font-size: 17px;
+      resize: none;
+    }
+
+    .textarea textarea:focus {
+      border-color: #444;
+    }
+
+    form .btn {
+      height: 45px;
+      width: 100%;
+      margin: 15px 0;
+    }
+
+    form .btn button {
+      height: 100%;
+      width: 100%;
+      border: 1px solid #444;
+      outline: none;
+      background: #222;
+      color: #999;
+      font-size: 17px;
+      font-weight: 500;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    form .btn button:hover {
+      background: #1b1b1b;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="/avaliandoexe/{{idsoli[0]}}" method="POST">
+    <div class="container">
+      <div class="post">
+        <div class="text">Obrigado por nos avaliar!</div>
+        <div class="edit">EDITAR</div>
+        <button type="submit">ENVIAR</button>
+      </div>
+      <div class="star-widget"  onclick="showDiv()">
+        <input type="radio" name="estrela10" value=10 id="rate-10">
+        <label for="rate-10" class="fas fa-star"></label>
+
+        <input type="radio" name="estrela9" value=9 id="rate-9">
+        <label for="rate-9" class="fas fa-star"></label>
+
+        <input type="radio" name="estrela8" value=8 id="rate-8">
+        <label for="rate-8" class="fas fa-star"></label>
+
+        <input type="radio" name="estrela7" value=7 id="rate-7">
+        <label for="rate-7" class="fas fa-star"></label>
+
+        <input type="radio" name="estrela6" value=6 id="rate-6">
+        <label for="rate-6" class="fas fa-star"></label>
+
+
+        <input type="radio" name="estrela5" value=5 id="rate-5">
+        <label for="rate-5" class="fas fa-star"></label>
+
+        <input type="radio" name="estrela4" value=4 id="rate-4">
+        <label for="rate-4" class="fas fa-star"></label>
+
+        <input type="radio" name="estrela3" value=3 id="rate-3">
+        <label for="rate-3" class="fas fa-star"></label>
+
+        <input type="radio" name="estrela2" value=2 id="rate-2">
+        <label for="rate-2" class="fas fa-star"></label>
+
+        <input type="radio" name="estrela1" value=1 id="rate-1">
+        <label for="rate-1" class="fas fa-star"></label>
+
+        <input type="radio" name="estrela0" value=0 id="rate-0">
+        <label for="rate-0" class="fas fa-star"></label>
+      </div>
+
+      <div style="display:none" id="containerestrelas" >
+          <div class="textarea">
+            <textarea cols="30" placeholder="Descreva sua experiência..." name="comentario"></textarea>
+          </div>
+          <div class="btn" style="display: block;" id="esconderBotao">
+            <button class="btn btn-success" id="botaoAdicionar" onclick="esconder()">ENVIAR</button>
+            <!--Botaozin-->
+          </div>
+      </div>
+  </form>
+  </div>
+  </div>    
+  <script type="text/javascript">
+    function showDiv(){
+      document.getElementById("containerestrelas").style.display = "block";
+
+    }
+
+    function esconder(){
+      document.getElementById("botaoAdicionar").disable = false;
+
+    }
+
+</script>
+  <script>
+    const btn = document.getElementById("aaa");
+    const post = document.querySelector(".post");
+    const widget = document.querySelector(".star-widget");
+    const editBtn = document.querySelector(".edit");
+    btn.onclick = () => {
+      widget.style.display = "none";
+      post.style.display = "block";
+      editBtn.onclick = () => {
+        widget.style.display = "block";
+        post.style.display = "none";
+      }
+      return false;
+    }
+  </script>
+</body>
+
+</html>

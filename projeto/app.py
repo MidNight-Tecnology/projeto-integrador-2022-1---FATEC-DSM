@@ -8,7 +8,7 @@ app.config['SECRET_KEY'] = "minha-chave"
 # conexão com o banco de dados
 app.config['MYSQL_Host'] = 'localhost'  # 127.0.0.1
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'sua senha'  # muda aq pra sua senha
+app.config['MYSQL_PASSWORD'] = 'nai123'  # muda aq pra sua senha
 app.config['MYSQL_DB'] = 'API'
 
 
@@ -23,6 +23,7 @@ def login(): ############################################################### Log
 
     global id 
     global nome
+   
      
     if request.method == 'POST':
         banco = request.form
@@ -54,7 +55,7 @@ def login(): ############################################################### Log
 
         elif executor > 0:
             # return "executor"
-            return redirect('consulta_executor')
+                return redirect('consulta_executor')
         
         elif adm > 0:
                 # return "executor"
@@ -62,36 +63,47 @@ def login(): ############################################################### Log
 
 
         else:
-            flash("Dados Invalidos")
+            flash("Dados Inválidos")
             return redirect('/login')
     else:
         return render_template('/login.html')
 
+@app.route('/btcadastro', methods=['GET', 'POST'])
+def bcadastro():
+    return render_template('/cadastro.html')
+
+
 @app.route('/cadastrar', methods=['GET', 'POST'])
 def cadastro(): ##################################################################### cadastro
 
+   
     if request.method == 'POST':
         banco = request.form
         nome = banco['nome']
         email = banco['email']
-        telefone = banco['telefone']
         senha = banco['senha']
         senha2 = banco['senha2'] 
         classe = 'Cliente'
 
         con = mysql.connection.cursor()
-        if senha == senha2 :
-            con.execute("INSERT INTO usuarios (nome, email, telefone, senha, classe ) VALUES (%s,%s,%s,%s,%s )",
-                    (nome, email, telefone, senha, classe))
+        emaildb = con.execute("SELECT email FROM usuarios WHERE email = %s", (email,))
+        if emaildb:
+            flash("Email já cadastrado! ")
+            return render_template("/cadastro.html") 
+
+        elif senha != senha2:
+            flash("Senhas não conferem! ")
+            return render_template("/cadastro.html")
+        
+        elif senha == senha2 :
+            con.execute("INSERT INTO usuarios (nome, email, senha, classe ) VALUES (%s,%s,%s,%s )",
+                    (nome, email, senha, classe))
             mysql.connection.commit()
             con.close()
 
             flash("Cadastro Realizado!")
-            return render_template("/cadastro.html")
-        else:
-            flash("Senhas não conferem! ")
-            return render_template("/cadastro.html")
-
+            return render_template("/cadastro.html ")      
+        
     else:
         return render_template("/cadastro.html")
         
@@ -181,28 +193,133 @@ def bt_executor_reijeitar(ich): ################################# solicitação 
         con.close()
         return redirect('/consulta_executor')
 
-################# ######################################### cliente #########################################
+########################################################## cliente #########################################
+
+####################### Funciona
 
 @app.route('/solicitacao_cliente', methods=['GET', 'POST'])
 def solicitacao_cliente(): ######################################solicitação feita pelo cliente 
-    
-    if request.method == 'POST':
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT id_chamado FROM chamados ")
+    ids_cham = cursor.fetchall()
+    cursor.execute("SELECT id_usuario FROM usuarios Where classe = 'Técnico'; ")
+    ids_exec = cursor.fetchall()
 
+    if request.method == 'POST':
         banco = request.form
         estado = 'Processando'
         resposta = 'Aguardando resposta'
-        
-
         assunto = banco['assunto']
         descricao = banco['descricao']
-        con = mysql.connection.cursor()
-        con.execute(
-            "INSERT INTO chamados (resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s, now(),%s,%s)", (resposta,assunto, descricao, id, estado,nome))
-        mysql.connection.commit()
-        con.close()
-        flash("Solicitação enviada com sucesso!")
-        return render_template("/solicitacao_cliente.html")
+
+
+
+        if len(ids_exec) == 0:
+                #comando para inserir no banco
+            con = mysql.connection.cursor()
+            con.execute(
+                "INSERT INTO chamados (assunto, descricao,resposta_chamado, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s, now(),%s,%s)", (assunto, descricao, resposta, id, estado,nome))
+            mysql.connection.commit()
+            con.close()
+            flash("Solicitação enviada com sucesso!")
+            return redirect("/solicitacao_cliente")
+            
+
+
+        elif len(ids_exec) == 1:
+            execone = ids_exec[0]
+            # commita no banco
+            con = mysql.connection.cursor()
+            con.execute(
+                "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (execone,resposta,assunto, descricao, id, estado,nome))
+            mysql.connection.commit()
+            con.close()
+            flash("Solicitação enviada com sucesso!")
+            return redirect("/solicitacao_cliente")
+
+        else:
+            if  len(ids_cham) >= 1:
+                cursor.execute("SELECT id_usuario_resp FROM chamados ORDER BY id_chamado DESC LIMIT 2")
+                ultimochamado = cursor.fetchall()
+                print(ultimochamado)
+
+                for i in range(len(ids_exec)):
+                    if not ids_exec in ultimochamado:
+                        if ids_exec[i] == ultimochamado[0]:
+                            if ids_exec.index(ids_exec[i]) + 1 < len(ids_exec):
+                                id_executor = ids_exec[i+1]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_cliente")
+
+                            elif ids_exec.index(ids_exec[i]) + 2 > len(ids_exec):
+                                id_executor = ids_exec[0]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_cliente")
+
+                            elif  ids_exec.index(ids_exec[i]) + 1 == len(ids_exec):
+                                    id_executor = ids_exec[-1]
+                                    con = mysql.connection.cursor()
+                                    con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                    mysql.connection.commit()
+                                    con.close()
+                                    flash("Solicitação enviada com sucesso!")
+                                    return redirect("/solicitacao_cliente")
+
+                    else:
+                        if ids_exec[i] == ultimochamado[1]:
+                            if ids_exec.index(ids_exec[i]) + 1 < len(ids_exec):
+                                id_executor = ids_exec[i+1]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_cliente")
+
+                            elif ids_exec.index(ids_exec[i]) + 2 > len(ids_exec):
+                                id_executor = ids_exec[0]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_cliente")
+
+                            elif  ids_exec.index(ids_exec[i]) + 1 == len(ids_exec):
+                                    id_executor = ids_exec[-1]
+                                    con = mysql.connection.cursor()
+                                    con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                    mysql.connection.commit()
+                                    con.close()
+                                    flash("Solicitação enviada com sucesso!")
+                                    return redirect("/solicitacao_cliente")
+
+            else:
+                for x in ids_exec:
+                    id_executor = x
+                    con = mysql.connection.cursor()
+                    con.execute(
+                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                    mysql.connection.commit()
+                    con.close()
+                    flash("Solicitação enviada com sucesso!")
+                    return redirect("/solicitacao_cliente")
     return render_template("/solicitacao_cliente.html")
+
 
 
 @app.route("/consulta_cliente")
@@ -468,7 +585,7 @@ def bt_adm_reijeitar(ic): #######################################solicitação r
 
         
         banco = request.form
-        diagnostico = banco['justifica']
+        diagnostico = banco['diagnostico']
         estado = 'Rejeitado'
         
         con = mysql.connection.cursor()
@@ -481,25 +598,6 @@ def bt_adm_reijeitar(ic): #######################################solicitação r
 
 
 
-@app.route("/grafico") #rota do grafico
-def grafico():
-    global Finalizados
-    global Recusados
-    global Pendentes
-
-    cursor = mysql.connection.cursor()
-    Finalizados = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Finalizado' ; ")
-    Recusados = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Rejeitado' ; ")
-    Pendentes = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Processando' ; ")
-
-    data = [('Pendentes',Pendentes),('Finalizados', Finalizados), ('Recusados',Recusados)]
-    if Finalizados == 0 and Recusados == 0 and Pendentes == 0:
-      flash("Não há dados!")
-      return render_template('graficos.html', data=data)
-
-    return render_template('graficos.html',Finalizados=Finalizados,Recusados=Recusados,Pendentes=Pendentes,data=data)
-
-
     ################################################# Alteração de dados (cliente) #################################################
 
 @app.route('/altera_cli', methods=['GET', 'POST'])
@@ -509,23 +607,28 @@ def altera_cli():
         banco = request.form
         name = banco['nome']
         email = banco['email']
-        telefone = banco['telefone']
         senha = banco['senha']
         senha2 = banco['senha2'] 
         
 
         con = mysql.connection.cursor()
-        if senha == senha2 :
-            con.execute( "UPDATE usuarios SET nome =%s, email =%s, telefone =%s, senha =%s where id_usuario =%s", (name,email,telefone,senha,id))
+        emaildb = con.execute("SELECT email FROM usuarios WHERE email = %s", (email,))
+        if emaildb:
+            flash("Email já cadastrado! ")
+            return render_template("/altera.cli.html") 
+
+        elif senha != senha2:
+            flash("Senhas não conferem! ")
+            return render_template("/altera.cli.html")
+        
+        elif senha == senha2 :
+            con.execute( "UPDATE usuarios SET nome =%s, email =%s, senha =%s where id_usuario =%s", (name,email,senha,id))
 
             mysql.connection.commit()
             con.close()
-
+            
             flash("Cadastro Atualizado!")
             return render_template("/login.html")
-        else:
-            flash("Senhas não conferem! ")
-            return render_template("/altera_cli.html")
 
     else:
         
@@ -541,27 +644,162 @@ def altera_exe():
         banco = request.form
         name = banco['nome']
         email = banco['email']
-        telefone = banco['telefone']
+        
         senha = banco['senha']
         senha2 = banco['senha2'] 
         
 
         con = mysql.connection.cursor()
-        if senha == senha2 :
-            con.execute( "UPDATE usuarios SET nome =%s, email =%s, telefone =%s, senha =%s where id_usuario =%s", (name,email,telefone,senha,id))
+        emaildb = con.execute("SELECT email FROM usuarios WHERE email = %s", (email,))
+        if emaildb:
+            flash("Email já cadastrado! ")
+            return render_template("/altera.exe.html") 
+
+        elif senha != senha2:
+            flash("Senhas não conferem! ")
+            return render_template("/altera.exe.html")
+        
+        elif senha == senha2 :
+            con.execute( "UPDATE usuarios SET nome =%s, email =%s, senha =%s where id_usuario =%s", (name,email,senha,id))
 
             mysql.connection.commit()
             con.close()
 
             flash("Cadastro Atualizado!")
             return render_template("/login.html")
-        else:
-            flash("Senhas não conferem! ")
-            return render_template("/altera_exe.html")
+
 
     else:
         
         return render_template('/altera_exe.html')
-    
 
-    
+############################################################### Sistema de avaliação ##################################################################33
+
+
+############################### Cliente
+@app.route('/avaliar/<idsoli>')
+def avaliar(idsoli): 
+    return render_template("/starrating.html",idsoli=idsoli)
+
+@app.route('/avaliando/<idsoli>', methods=['GET', 'POST'])
+def avaliando(idsoli):
+    coment_aval = request.form.get('comentario')
+    estrela0=request.form.get('estrela0')
+    estrela1=request.form.get('estrela1')
+    estrela2=request.form.get('estrela2')
+    estrela3=request.form.get('estrela3')
+    estrela4=request.form.get('estrela4')
+    estrela5=request.form.get('estrela5')
+    estrela6=request.form.get('estrela6')
+    estrela7=request.form.get('estrela7')
+    estrela8=request.form.get('estrela8')
+    estrela9=request.form.get('estrela9')
+    estrela10=request.form.get('estrela10')
+    x=[estrela0,estrela1,estrela2,estrela3,estrela4,estrela5,estrela6,estrela7,estrela8,estrela9,estrela10]
+    for i in x:
+        if str(i) in "012345678910":
+            con = mysql.connection.cursor()
+            con.execute("UPDATE chamados SET avaliacao =%s, coment_aval=%s WHERE id_chamado = %s ",(i,coment_aval,idsoli,))
+            mysql.connection.commit()
+    return redirect("/consulta_cliente")
+
+
+##################################### Adm
+
+@app.route('/avaliaradm/<idsoli>')
+def avaliaradm(idsoli): 
+    return render_template("/starratingadm.html",idsoli=idsoli)
+
+@app.route('/avaliandoadm/<idsoli>', methods=['GET', 'POST'])
+def avaliandoadm(idsoli):
+    coment_aval = request.form.get('comentario')
+    estrela0=request.form.get('estrela0')
+    estrela1=request.form.get('estrela1')
+    estrela2=request.form.get('estrela2')
+    estrela3=request.form.get('estrela3')
+    estrela4=request.form.get('estrela4')
+    estrela5=request.form.get('estrela5')
+    estrela6=request.form.get('estrela6')
+    estrela7=request.form.get('estrela7')
+    estrela8=request.form.get('estrela8')
+    estrela9=request.form.get('estrela9')
+    estrela10=request.form.get('estrela10')
+    x=[estrela0,estrela1,estrela2,estrela3,estrela4,estrela5,estrela6,estrela7,estrela8,estrela9,estrela10]
+    for i in x:
+        if str(i) in "012345678910":
+            con = mysql.connection.cursor()
+            con.execute("UPDATE chamados SET avaliacao =%s, coment_aval=%s WHERE id_chamado = %s ",(i,coment_aval,idsoli,))
+            mysql.connection.commit()
+    return redirect("/consulta_administrador1")
+
+
+########################################## Exe
+
+@app.route('/avaliarexe/<idsoli>')
+def avaliarexe(idsoli): 
+    return render_template("/starratingexe.html",idsoli=idsoli)
+
+@app.route('/avaliandoexe/<idsoli>', methods=['GET', 'POST'])
+def avaliandoexe(idsoli):
+    coment_aval = request.form.get('comentario')
+    estrela0=request.form.get('estrela0')
+    estrela1=request.form.get('estrela1')
+    estrela2=request.form.get('estrela2')
+    estrela3=request.form.get('estrela3')
+    estrela4=request.form.get('estrela4')
+    estrela5=request.form.get('estrela5')
+    estrela6=request.form.get('estrela6')
+    estrela7=request.form.get('estrela7')
+    estrela8=request.form.get('estrela8')
+    estrela9=request.form.get('estrela9')
+    estrela10=request.form.get('estrela10')
+    x=[estrela0,estrela1,estrela2,estrela3,estrela4,estrela5,estrela6,estrela7,estrela8,estrela9,estrela10]
+    for i in x:
+        if str(i) in "012345678910":
+            con = mysql.connection.cursor()
+            con.execute("UPDATE chamados SET avaliacao =%s, coment_aval=%s WHERE id_chamado = %s ",(i,coment_aval,idsoli,))
+            mysql.connection.commit()
+    return redirect("/consulta_executor1")
+
+
+
+
+
+
+
+
+############################################################################# Grafico ######################################################################333
+
+@app.route("/grafico") #rota do grafico
+def grafico():
+    global Finalizados
+    global Recusados
+    global Pendentes
+
+    cursor = mysql.connection.cursor()
+    Finalizados = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Finalizado' ; ")
+    Recusados = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Rejeitado' ; ")
+    Pendentes = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Processando' ; ")
+
+
+    nestrela0 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='0' ; ")
+    nestrela1 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='1' ; ") #pega a quantidade de estrelas e salva em varias variasveis
+    nestrela2 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='2' ; ")
+    nestrela3 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='3' ; ")
+    nestrela4 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='4' ; ")
+    nestrela5 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='5' ; ")
+    nestrela6 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='6' ; ") #pega a quantidade de estrelas e salva em varias variasveis
+    nestrela7 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='7' ; ")
+    nestrela8 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='8' ; ")
+    nestrela9 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='9' ; ")
+    nestrela10 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='10' ; ")
+   
+
+    data = [('Pendentes',Pendentes),('Finalizados', Finalizados), ('Recusados',Recusados)] #salva os dados em uma array para serem usados no grafico
+    data2 = [('0 Estrela',nestrela0),('1 Estrela',nestrela1),('2 Estrelas', nestrela2), ('3 Estrelas',nestrela3), ('4 Estrelas', nestrela4), ('5 Estrelas', nestrela5), ('6 Estrelas',nestrela6),('7 Estrelas', nestrela7), ('8 Estrelas',nestrela8), ('9 Estrelas', nestrela9), ('10 Estrelas', nestrela10)]
+
+    if Finalizados == 0 and Recusados == 0 and Pendentes == 0:
+      flash("Não há dados!")
+      return render_template('graficos.html', data=data,data2=data2)
+
+    return render_template('graficos.html',Finalizados=Finalizados,Recusados=Recusados,Pendentes=Pendentes,nestrela0=nestrela0,nestrela1=nestrela1,nestrela2=nestrela2,nestrela3=nestrela3,nestrela4=nestrela4,nestrela5=nestrela5,nestrela6=nestrela6,nestrela7=nestrela7,nestrela8=nestrela8,nestrela9=nestrela9,nestrela10=nestrela10,data=data,data2=data2)
