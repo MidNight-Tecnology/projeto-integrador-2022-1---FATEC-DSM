@@ -41,7 +41,7 @@
 |:-------:|:----------------------:|:-----------:|
 |SPRINT 1:| 25/03/2022 a 14/04/2022| [Disponível](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/tree/main/planejamento/sprint-1) |
 |SPRINT 2:| 25/04/2022 a 15/05/2022| [Disponível](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-2/README.md) |
-|SPRINT 3:| 16/05/2022 a 05/06/2022|             |
+|SPRINT 3:| 16/05/2022 a 05/06/2022| [Disponível](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/tree/main/planejamento/sprint-3) |
     
 → [Voltar ao topo](#topo)
 
@@ -149,11 +149,11 @@
 
 |       Nome       |     Função     |      GitHub
 |:----------------:|:--------------:|:-------------------------------------------------------------------:|
-|   Gustavo Messa  | Frontend  Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/gmessa)       |
-|   Júlio de Paula | Backend   Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/JulioPm142)   |
-|   Júlio Lucena   | Backend   Dev  | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/JulioL2001)   |
-|   Naiara Leonor  | Frontend  S.M. | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/nai-leonor)   |
-|   Ryan Alves     | Backend   P.O. | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/XLryan246)    |
+|   Gustavo Messa  |    Dev Team    | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/gmessa)       |
+|   Júlio de Paula |    Dev Team    | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/JulioPm142)   |
+|   Júlio Lucena   |    Dev Team    | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/JulioL2001)   |
+|   Naiara Leonor  |   Scrum Master | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/nai-leonor)   |
+|   Ryan Alves     |       P.O.     | [![GitHub Badge](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/imagens%20read.me/github_icon.png)](https://github.com/XLryan246)    |
 
 → [Voltar ao topo](#topo)
     
