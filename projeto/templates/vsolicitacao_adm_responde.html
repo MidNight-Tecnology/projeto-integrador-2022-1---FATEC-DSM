@@ -44,6 +44,8 @@
 
 
     {% for user in Details %}
+      
+     
 
     
     <form action="/vrespostaadm/{{user.0}}" method="POST"> 
@@ -59,7 +61,7 @@
                 <textarea name="descricao" required readonly style="resize: none;" class="form-control" id="srcDesc"
                   rows="7" placeholder="{{ user[6] }}"></textarea>
               </div><br>
-    
+             <form action="/vrespostaadm/{{user.0}}" method="POST">
               <h6 class="form-sol">Resposta:</h6>
               <div class="form-group">
                 <textarea name="diagnostico" required  style="resize: none;" class="form-control" id="srcDiag"
@@ -67,25 +69,25 @@
               </div>
 
               <div class="btn-solicita">
-                <button id="btnresponder" type="submit"class="btn btn-primary btn-salvar" href="{{ url_for('consulta_administrador') }}" role="button" 
+                <button  name ="bta" value="Finalizado" id="btnresponder" class="btn btn-primary btn-salvar" href="{{ url_for('consulta_administrador') }}" role="button" 
                 style="background-color:#1f9b44; border: none; box-shadow: 0 0 0 0;" 
                 >Responder solicitação</button><br><br>
+              </div><br>
+            
+              <div class="rejeita">
+                <button name="bta" value="Rejeitado" id="btnrejeitar" class="btn btn-primary btn-salvar" href="{{ url_for('consulta_administrador') }}" role="button" 
+                style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0; float: right; margin-right: 5px; " 
+                >Rejeitar Solicitação</button><br><br>
               </div>
             </form>
+
+        
+
     <br>
-                <form action="/reijeitar_resposta_adm/{{user.0}}" method="POST">
-                  <!-- <h6 class="form-sol">Motivo da Rejeição: </h6>
-                  <div class="form-group">
-                      <textarea name="justifica" required  style="resize: none;" class="form-control" id="srcDiag"
-                rows="7"></textarea>
-                </div><br> --> 
+
          
-                <div class="rejeita">
-                        <button id="btnrejeitar" type="submit"class="btn btn-primary btn-salvar" href="{{ url_for('consulta_executor') }}" role="button" 
-                        style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0; float: right; margin-right: 5px; " 
-                        >Rejeitar Solicitação</button><br><br>
-                  </div>
-                </form>
+
+               
           {% endfor %}  
         
         </div>

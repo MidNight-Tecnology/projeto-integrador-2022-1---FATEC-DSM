@@ -62,7 +62,7 @@
             <tr>
               <td> {{ user[4] }}  </td>
               <td> {{ user[1].strftime('%d/%m/%y - %H:%M:%S') }}  </td>
-              <td> {{ user[2].strftime('%d/%m/%y - %H:%M:%S') }}  </td>
+              <td> {{ user[2].strftime('%d/%m/%y - %H:%M:%S') if user[2]}}  </td>
               <td> {{ user[5] }} </td>
               <td> {{ user[11] }}</td>
             <form action="/abrir_solicitacao_exe2/{{user.0}}" method="GET">

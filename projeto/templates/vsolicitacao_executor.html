@@ -47,44 +47,35 @@
     <form action="/visualizar_solicitacao_exe/{{user.0}}" method="POST"> 
           
           
-              <h6 class="form-sol">Tipo de Problema:</h6>
-              <div class="form-group">
-                <input type="text" name="assunto" class="form-control" id="srcAssunto" required readonly placeholder="{{ user[5] }} ">
-              </div><br>
+      <h6 class="form-sol">Tipo de Problema:</h6>
+      <div class="form-group">
+        <input type="text" name="assunto" class="form-control" id="srcAssunto" required readonly placeholder="{{ user[5] }} ">
+      </div><br>
 
-              <h6 class="form-sol">Descrição:</h6>
-              <div class="form-group">
-                <textarea name="descricao" required readonly style="resize: none;" class="form-control" id="srcDesc"
-                  rows="7" placeholder="{{ user[6] }}"></textarea>
-              </div><br>
-          
-              <h6 class="form-sol">Resposta:</h6>
-              <div class="form-group">
-                <textarea name="diagnostico" required  style="resize: none;" class="form-control" id="srcDiag"
-                  rows="7"></textarea>
-              </div><br>
+      <h6 class="form-sol">Descrição:</h6>
+      <div class="form-group">
+        <textarea name="descricao" required readonly style="resize: none;" class="form-control" id="srcDesc"
+          rows="7" placeholder="{{ user[6] }}"></textarea>
+      </div><br>
+     <form action="/vrespostaadm/{{user.0}}" method="POST">
+      <h6 class="form-sol">Resposta:</h6>
+      <div class="form-group">
+        <textarea name="diagnostico" required  style="resize: none;" class="form-control" id="srcDiag"
+          rows="7"></textarea>
+      </div>
 
-              <div class="btn-solicita">
-                <button id="btnresponder" type="submit"class="btn btn-primary btn-salvar" href="{{ url_for('consulta_executor') }}" role="button" 
-                style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;" 
-                >Responder solicitação</button><br><br>
-              </div>
+      <div class="btn-solicita">
+        <button  name ="bta" value="Finalizado" id="btnresponder" class="btn btn-primary btn-salvar" href="{{ url_for('consulta_executor') }}" role="button" 
+        style="background-color:#1f9b44; border: none; box-shadow: 0 0 0 0;" 
+        >Responder solicitação</button><br><br>
+      </div><br>
+    
+      <div class="rejeita">
+        <button name="bta" value="Rejeitado" id="btnrejeitar" class="btn btn-primary btn-salvar" href="{{ url_for('consulta_executor') }}" role="button" 
+        style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0; float: right; margin-right: 5px; " 
+        >Rejeitar Solicitação</button><br><br>
+      </div>
     </form>
-    <br>
-      <form action="/reijeitar_solicitacao_exe/{{user.0}}" method="POST">
-           <h6 class="form-sol">Motivo da Rejeição: </h6>
-             <div class="form-group">
-                  <textarea name="justifica" required  style="resize: none;" class="form-control" id="srcDiag"
-            rows="7"></textarea>
-            </div><br>
-
-              
-        <div class="btn-solicita">
-                <button id="btnrejeitar" type="submit"class="btn btn-primary btn-salvar" href="{{ url_for('consulta_executor') }}" role="button" 
-                style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0; " 
-                >Rejeitar Solicitação</button><br><br>
-          </div>
-      </form>
 
       
           {% endfor %}  

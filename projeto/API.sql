@@ -54,9 +54,6 @@ Alter Table chamados Add constraint fk_usu_cham
 Foreign Key (id_usuario) 
 References usuarios (id_usuario);
 
-Alter Table chamados Add constraint fk_usu_cham_resp
-Foreign Key (id_usuario_resp) 
-References usuarios (id_usuario);
 
 -- -----------------------------------------------------
 -- Inserção e Seleção de Dados na Tabela
@@ -84,7 +81,7 @@ where table_name='usuarios';
 -- Deletando o Banco de Dados
 -- -----------------------------------------------------
 
--- drop database API;
+   -- drop database API;
 -- drop table chamados;
 
 select * from chamados order by data_de_inicio desc;

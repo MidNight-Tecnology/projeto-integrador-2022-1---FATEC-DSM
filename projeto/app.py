@@ -8,7 +8,7 @@ app.config['SECRET_KEY'] = "minha-chave"
 # conexão com o banco de dados
 app.config['MYSQL_Host'] = 'localhost'  # 127.0.0.1
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'nai123'  # muda aq pra sua senha
+app.config['MYSQL_PASSWORD'] = 'messa'  # muda aq pra sua senha
 app.config['MYSQL_DB'] = 'API'
 
 
@@ -113,23 +113,126 @@ def cadastro(): ################################################################
 
 @app.route('/solicitacao_executor', methods=['GET', 'POST'])
 def solicitacao_executor(): ######################################### Solicitação feita pelo executor 
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT id_chamado FROM chamados " )
+    ids_cham = cursor.fetchall()
+    cursor.execute("SELECT id_usuario FROM usuarios Where classe = 'Técnico' and id_usuario !=%s ",(id,)  )
+    ids_exec = cursor.fetchall()
+    cursor.execute("SELECT id_usuario FROM usuarios Where classe = 'Administrador'; ")
+    adm = cursor.fetchone()
 
     if request.method == 'POST':
-    
         banco = request.form
         estado = 'Processando'
         resposta = 'Aguardando resposta'
-
         assunto = banco['assunto']
         descricao = banco['descricao']
-        con = mysql.connection.cursor()
-        con.execute(
-            "INSERT INTO chamados (resposta_chamado, assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s, now(),%s,%s)", (resposta,assunto, descricao, id, estado,nome))
-        mysql.connection.commit()
-        con.close()
-        flash("Solicitação enviada com sucesso!")
-        return render_template("/solicitacao_executor.html")
-    
+
+
+        if len(ids_exec) == 0:
+                #comando para inserir no banco
+            con = mysql.connection.cursor()
+            con.execute(
+                "INSERT INTO chamados (id_usuario_resp, assunto, descricao,resposta_chamado, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (adm,assunto, descricao, resposta, id, estado,nome))
+            mysql.connection.commit()
+            con.close()
+            flash("Solicitação enviada com sucesso!")
+            return redirect("/solicitacao_executor")
+            
+
+
+        elif len(ids_exec) == 1:
+            execone = ids_exec[0]
+            # commita no banco
+            con = mysql.connection.cursor()
+            con.execute(
+                "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (execone,resposta,assunto, descricao, id, estado,nome))
+            mysql.connection.commit()
+            con.close()
+            flash("Solicitação enviada com sucesso!")
+            return redirect("/solicitacao_executor")
+
+        else:
+            if  len(ids_cham) >= 1:
+                cursor.execute("SELECT id_usuario_resp FROM chamados ORDER BY id_chamado DESC LIMIT 2")
+                ultimochamado = cursor.fetchall()
+                print(ultimochamado)
+
+                for i in range(len(ids_exec)):
+                    if not ids_exec in ultimochamado:
+                        if ids_exec[i] == ultimochamado[0]:
+                            if ids_exec.index(ids_exec[i]) + 1 < len(ids_exec):
+                                id_executor = ids_exec[i+1]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_executor")
+
+                            elif ids_exec.index(ids_exec[i]) + 2 > len(ids_exec):
+                                id_executor = ids_exec[0]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_executor")
+
+                            elif  ids_exec.index(ids_exec[i]) + 1 == len(ids_exec):
+                                    id_executor = ids_exec[-1]
+                                    con = mysql.connection.cursor()
+                                    con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                    mysql.connection.commit()
+                                    con.close()
+                                    flash("Solicitação enviada com sucesso!")
+                                    return redirect("/solicitacao_executor")
+
+                    else:
+                        if ids_exec[i] == ultimochamado[1]:
+                            if ids_exec.index(ids_exec[i]) + 1 < len(ids_exec):
+                                id_executor = ids_exec[i+1]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_executor")
+
+                            elif ids_exec.index(ids_exec[i]) + 2 > len(ids_exec):
+                                id_executor = ids_exec[0]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_executor")
+
+                            elif  ids_exec.index(ids_exec[i]) + 1 == len(ids_exec):
+                                    id_executor = ids_exec[-1]
+                                    con = mysql.connection.cursor()
+                                    con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                    mysql.connection.commit()
+                                    con.close()
+                                    flash("Solicitação enviada com sucesso!")
+                                    return redirect("/solicitacao_executor")
+
+            else:
+                for x in ids_exec:
+                    id_executor = x
+                    con = mysql.connection.cursor()
+                    con.execute(
+                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                    mysql.connection.commit()
+                    con.close()
+                    flash("Solicitação enviada com sucesso!")
+                    return redirect("/solicitacao_executor")
     return render_template("/solicitacao_executor.html")
 
 
@@ -137,7 +240,7 @@ def solicitacao_executor(): ######################################### Solicitaç
 def consulta_executor(): ###################################lista com todas as solicitações feitas pelos usuarios
     
     cursor = mysql.connection.cursor()
-    Values = cursor.execute("SELECT * FROM chamados where estado_chamado = 'Processando' and id_usuario !=%s order by data_de_inicio desc ",(id,) )
+    Values = cursor.execute("SELECT * FROM chamados where estado_chamado = 'Processando' and id_usuario !=%s and id_usuario_resp =%s order by data_de_inicio desc ",(id,id,) )
     
     if Values > 0:
         Details = cursor.fetchall()
@@ -164,31 +267,16 @@ def bt_executor_visualizar(id): ########################################## visua
 def visualizar_executor(ch): ################################################# resposta feita pelo executor
     
     
-        banco = request.form
 
+        banco = request.form
         diagnostico = banco['diagnostico']
-        estado = 'Finalizado'
-        
-        con = mysql.connection.cursor()
-        
+ 
+        estado = banco ['bta'] 
+
+        con = mysql.connection.cursor() 
+            
         con.execute(
-            "UPDATE chamados SET data_de_termino =now(),nome_resposta =%s, id_usuario_resp =%s, resposta_chamado =%s, estado_chamado =%s where id_chamado =%s", (nome,id,diagnostico,estado,[ch]))
-        mysql.connection.commit()
-        con.close()
-        return redirect('/consulta_executor')
-
-
-@app.route('/reijeitar_solicitacao_exe/<ich>',methods=['POST'])
-def bt_executor_reijeitar(ich): ################################# solicitação rejeitada pelo executor 
-
-        banco = request.form
-        diagnostico = banco['justifica']
-        estado = 'Rejeitado'
-        
-        con = mysql.connection.cursor()
-        
-        con.execute(
-            "UPDATE chamados SET data_de_termino =now(),nome_resposta =%s, id_usuario_resp =%s, estado_chamado =%s, resposta_chamado =%s where id_chamado =%s", (nome,id,estado,diagnostico,[ich]))
+                "UPDATE chamados SET data_de_termino =now(), id_usuario_resp =%s, nome_resposta =%s, resposta_chamado =%s, estado_chamado =%s where id_chamado =%s", (id,nome, diagnostico,estado,[ch]))
         mysql.connection.commit()
         con.close()
         return redirect('/consulta_executor')
@@ -204,6 +292,8 @@ def solicitacao_cliente(): ######################################solicitação f
     ids_cham = cursor.fetchall()
     cursor.execute("SELECT id_usuario FROM usuarios Where classe = 'Técnico'; ")
     ids_exec = cursor.fetchall()
+    cursor.execute("SELECT id_usuario FROM usuarios Where classe = 'Administrador'; ")
+    adm = cursor.fetchone()
 
     if request.method == 'POST':
         banco = request.form
@@ -211,14 +301,13 @@ def solicitacao_cliente(): ######################################solicitação f
         resposta = 'Aguardando resposta'
         assunto = banco['assunto']
         descricao = banco['descricao']
-
-
+        
 
         if len(ids_exec) == 0:
                 #comando para inserir no banco
             con = mysql.connection.cursor()
             con.execute(
-                "INSERT INTO chamados (assunto, descricao,resposta_chamado, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s, now(),%s,%s)", (assunto, descricao, resposta, id, estado,nome))
+                "INSERT INTO chamados (id_usuario_resp, assunto, descricao,resposta_chamado, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (adm,assunto, descricao, resposta, id, estado,nome))
             mysql.connection.commit()
             con.close()
             flash("Solicitação enviada com sucesso!")
@@ -393,7 +482,7 @@ def visualizar_executor1(): ############################### tela de visualizaç�
 def consulta_executor2(): ################################## lista solicitações respondidas pelo executor 
 
     cursor = mysql.connection.cursor()
-    Values = cursor.execute("SELECT * FROM chamados Where id_usuario_resp = %s order by data_de_termino desc", (id,))
+    Values = cursor.execute("SELECT * FROM chamados Where id_usuario_resp = %s and estado_chamado != 'Processando' order by data_de_termino desc", (id,))
     
     if Values > 0:
         exe1 = cursor.fetchall()
@@ -428,21 +517,120 @@ def visualizar_executor2(): #tela de visualização de solicitação de cliente
 @app.route('/solicitacao_administrador', methods=['GET', 'POST'])
 def solicitacao_administrador(): #########################################  solicitação feita pelo ADM
 
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT id_chamado FROM chamados " )
+    ids_cham = cursor.fetchall()
+    cursor.execute("SELECT id_usuario FROM usuarios Where classe = 'Técnico' and id_usuario !=%s ",(id,)  )
+    ids_exec = cursor.fetchall()
+
     if request.method == 'POST':
-    
         banco = request.form
         estado = 'Processando'
-        resposta = 'Aguardando resposta' 
-
+        resposta = 'Aguardando resposta'
         assunto = banco['assunto']
         descricao = banco['descricao']
-        con = mysql.connection.cursor()
-        con.execute(
-            "INSERT INTO chamados (resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s, now(),%s,%s)", (resposta,assunto, descricao, id, estado,nome))
-        mysql.connection.commit()
-        con.close()
-        flash("Solicitação enviada com sucesso!")
-        return render_template("/solicitacao_administrador.html")
+
+
+
+        if len(ids_exec) == 0:
+
+            flash("Não há técnicos cadastrados!!")
+            return redirect("/solicitacao_administrador")
+            
+
+
+        elif len(ids_exec) == 1:
+            execone = ids_exec[0]
+            # commita no banco
+            con = mysql.connection.cursor()
+            con.execute(
+                "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (execone,resposta,assunto, descricao, id, estado,nome))
+            mysql.connection.commit()
+            con.close()
+            flash("Solicitação enviada com sucesso!")
+            return redirect("/solicitacao_administrador")
+
+        else:
+            if  len(ids_cham) >= 1:
+                cursor.execute("SELECT id_usuario_resp FROM chamados ORDER BY id_chamado DESC LIMIT 2")
+                ultimochamado = cursor.fetchall()
+                print(ultimochamado)
+
+                for i in range(len(ids_exec)):
+                    if not ids_exec in ultimochamado:
+                        if ids_exec[i] == ultimochamado[0]:
+                            if ids_exec.index(ids_exec[i]) + 1 < len(ids_exec):
+                                id_executor = ids_exec[i+1]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_administrador")
+
+                            elif ids_exec.index(ids_exec[i]) + 2 > len(ids_exec):
+                                id_executor = ids_exec[0]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_administrador")
+
+                            elif  ids_exec.index(ids_exec[i]) + 1 == len(ids_exec):
+                                    id_executor = ids_exec[-1]
+                                    con = mysql.connection.cursor()
+                                    con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                    mysql.connection.commit()
+                                    con.close()
+                                    flash("Solicitação enviada com sucesso!")
+                                    return redirect("/solicitacao_administrador")
+
+                    else:
+                        if ids_exec[i] == ultimochamado[1]:
+                            if ids_exec.index(ids_exec[i]) + 1 < len(ids_exec):
+                                id_executor = ids_exec[i+1]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_administrador")
+
+                            elif ids_exec.index(ids_exec[i]) + 2 > len(ids_exec):
+                                id_executor = ids_exec[0]
+                                con = mysql.connection.cursor()
+                                con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                mysql.connection.commit()
+                                con.close()
+                                flash("Solicitação enviada com sucesso!")
+                                return redirect("/solicitacao_administrador")
+
+                            elif  ids_exec.index(ids_exec[i]) + 1 == len(ids_exec):
+                                    id_executor = ids_exec[-1]
+                                    con = mysql.connection.cursor()
+                                    con.execute(
+                                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                                    mysql.connection.commit()
+                                    con.close()
+                                    flash("Solicitação enviada com sucesso!")
+                                    return redirect("/solicitacao_administrador")
+
+            else:
+                for x in ids_exec:
+                    id_executor = x
+                    con = mysql.connection.cursor()
+                    con.execute(
+                        "INSERT INTO chamados (id_usuario_resp,resposta_chamado,assunto, descricao, id_usuario, data_de_inicio, estado_chamado, nome_usuario ) VALUES (%s,%s,%s,%s,%s, now(),%s,%s)", (id_executor,resposta,assunto, descricao, id, estado,nome))
+                    mysql.connection.commit()
+                    con.close()
+                    flash("Solicitação enviada com sucesso!")
+                    return redirect("/solicitacao_administrador")
     return render_template("/solicitacao_administrador.html")
 
 @app.route("/consulta_administrador", methods=['GET'])
@@ -518,18 +706,121 @@ def config_adm(): #mudar cliente para técnico
 
 @app.route("/bt_mcargo/<id>", methods=['GET','POST']) ##############################botão mudar cargo
 def mudar_cargo(id): 
+
+    
+
     con = mysql.connection.cursor()
     con.execute("SELECT classe from usuarios where id_usuario =%s ",(id,))
+    #adm = mysql.connection.cursor()
+
     tipo = con.fetchone()
     if tipo[0] == 'Técnico':
         con.execute(
             "UPDATE usuarios SET classe  = 'Cliente' WHERE id_usuario =%s ",(id,)) 
         mysql.connection.commit()
+        con.close()
+        con = mysql.connection.cursor()
+
+        cursorChamados = mysql.connection.cursor()
+        chamados = []
+        cursorChamados.execute("SELECT id_chamado FROM chamados WHERE id_usuario_resp = %s", (id,))
+        for i in cursorChamados.fetchall():
+            for chamado in i:
+                chamados.append(chamado)
+            
+        print(type(chamados))
+        print("aqui")
+        print(chamados)
+        print(f'{chamados} \n')
+
+
+        y = con.execute("SELECT id_usuario FROM usuarios Where classe = 'Técnico' " )
+        
+        if y > 0:
+            tecnicos = con.fetchall()
+        else:
+            con = mysql.connection.cursor()
+            con.execute(
+                "UPDATE chamados SET id_usuario_resp = 1")
+            mysql.connection.commit()
+            con.close()
+            return redirect("/config_adm")
+
+        if len(tecnicos) != 0:
+            if len(chamados) == 0:
+                print("Nao há chamadas")
+            else:
+                for tecnico in tecnicos:
+   
+                    con.execute("UPDATE chamados SET id_usuario_resp = %s WHERE id_chamado = %s", (tecnico,chamados[0],))
+                    del chamados[0]
+                    mysql.connection.commit()
+                    if len(chamados) == 0:
+                            break
+
+
+
+
+         #Fazer update de  todos os id_usuario_resp desses chamados
     else:
         con.execute(
-            "UPDATE usuarios SET classe  = 'Técnico' WHERE id_usuario =%s ",(id,)) 
+            "UPDATE usuarios SET classe  = 'Técnico' WHERE id_usuario =%s and classe != 'Administrador' ",(id,))  
         mysql.connection.commit()
     return redirect('/config_adm')
+
+
+
+# @app.route("/bt_mcargo/<id>", methods=['GET','POST']) ##############################botão mudar cargo
+# def mudar_cargo(id): 
+
+    
+#     con = mysql.connection.cursor()
+#     con.execute("SELECT classe from usuarios where id_usuario =%s ",(id,))
+#     tipo = con.fetchone()
+#     if tipo[0] == 'Técnico':
+#         con.execute(
+#             "UPDATE usuarios SET classe  = 'Cliente' WHERE id_usuario =%s ",(id,)) 
+#         mysql.connection.commit()
+#         con.execute(
+#             "UPDATE chamados SET id_usuario_resp = 0  WHERE id_usuario_resp =%s ",(id,)) 
+#         mysql.connection.commit()
+#         con.close()
+
+#         cursor = mysql.connection.cursor()
+#         cursor.execute("SELECT id_usuario FROM usuarios Where classe = 'Técnico' ")
+#         ids_exec = cursor.fetchall()
+      
+
+#         if len(ids_exec) == 1:
+#             execone = ids_exec[0]
+#             # commita no banco
+#             con = mysql.connection.cursor()
+#             con.execute(
+#                 "UPDATE chamados SET id_usuario_resp =%s", (execone,))
+#             mysql.connection.commit()
+#             con.close()
+#             return redirect("/config_adm")
+     
+
+#         else:
+#                 for x in ids_exec:
+#                     id_executor = x
+#                     con = mysql.connection.cursor()
+#                     con.execute(
+#                         "UPDATE chamados SET id_usuario_resp =%s where id_usuario_resp = 0 ", (id_executor))
+#                     mysql.connection.commit()
+#                     con.close()
+#                 return redirect("/config_adm")
+    
+
+                  
+    
+#     ####### else    
+#     else:
+#         con.execute(
+#             "UPDATE usuarios SET classe  = 'Técnico' WHERE id_usuario =%s ",(id,)) 
+#         mysql.connection.commit()
+#         return redirect("/config_adm")
 
 
     ########################################################################## - adm responde solicitações
@@ -565,37 +856,20 @@ def bt_admresp_visualizar(id): ####################################rota para abr
 @app.route("/vrespostaadm/<ch>", methods=['GET','POST'])
 def visualizar_administrador3(ch): ############################################resposta feita pelo ADM
     
-    
-        banco = request.form
 
+        banco = request.form
         diagnostico = banco['diagnostico']
-        estado = 'Finalizado'
-        
-        con = mysql.connection.cursor()
-        
+ 
+        estado = banco ['bta'] 
+
+        con = mysql.connection.cursor() 
+            
         con.execute(
-            "UPDATE chamados SET data_de_termino =now(), id_usuario_resp =%s, nome_resposta =%s, resposta_chamado =%s, estado_chamado =%s where id_chamado =%s", (id,nome, diagnostico,estado,[ch]))
+                "UPDATE chamados SET data_de_termino =now(), id_usuario_resp =%s, nome_resposta =%s, resposta_chamado =%s, estado_chamado =%s where id_chamado =%s", (id,nome, diagnostico,estado,[ch]))
         mysql.connection.commit()
         con.close()
         return redirect('/admresponde')
-
-
-@app.route('/reijeitar_resposta_adm/<ic>',methods=['POST'])
-def bt_adm_reijeitar(ic): #######################################solicitação rejeitada pelo ADM 
-
-        
-        banco = request.form
-        diagnostico = banco['diagnostico']
-        estado = 'Rejeitado'
-        
-        con = mysql.connection.cursor()
-        
-        con.execute(
-            "UPDATE chamados SET data_de_termino =now(),nome_resposta =%s, id_usuario_resp =%s, estado_chamado =%s, resposta_chamado =%s where id_chamado =%s", (nome,id,estado,diagnostico,[ic]))
-        mysql.connection.commit()
-        con.close()
-        return redirect('/admresponde')
-
+   
 
 
     ################################################# Alteração de dados (cliente) #################################################
