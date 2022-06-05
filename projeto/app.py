@@ -8,7 +8,7 @@ app.config['SECRET_KEY'] = "minha-chave"
 # conexão com o banco de dados
 app.config['MYSQL_Host'] = 'localhost'  # 127.0.0.1
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'messa'  # muda aq pra sua senha
+app.config['MYSQL_PASSWORD'] = 'nai123'  # muda aq pra sua senha
 app.config['MYSQL_DB'] = 'API'
 
 
