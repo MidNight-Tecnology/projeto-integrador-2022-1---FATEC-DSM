@@ -107,7 +107,9 @@ Login padrão:
 <span id="modbanco">
 <b> Modelagem de Banco de dados </b>
 <p></p> 
-  
+
+![Modelo Conceitual](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-3/Modelo_Conceitual_-_SP-03.png)
+![Modelo Lógico](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-3/Modelo_Logico_-_SP-03.png)	
 
 → [Voltar ao topo](#topo)
   
