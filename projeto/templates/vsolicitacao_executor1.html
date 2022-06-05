@@ -65,11 +65,29 @@
                   rows="7" placeholder="{{ user[10] }}"></textarea>
               </div><br>
 
-              <div class="btn-sair">
-                <a id="btnsair" type="submit"class="btn btn-primary btn-salvar" href="{{ url_for('consulta_executor1') }}" role="button" 
-                style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;" 
-                >Sair</a><br><br>
+              {%if user[8] !=  none  or user[11] == 'Processando' %}
+              <div class="btn-solicita">
+                <a id="btnsair" type="submit" class="btn btn-primary btn-salvar" href="{{ url_for('consulta_executor1') }}"
+                  role="button" style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;">Sair</a><br><br>
               </div>
+
+
+              {%else %}
+           
+              <div class="btn-solicita">
+                <a id="btnsair" type="submit" class="btn btn-primary btn-salvar" href="{{ url_for('consulta_executor1') }}"
+                  role="button" style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;">Sair</a><br><br>
+              </div>
+              
+           
+              <a id="btnaval" type="submit" class="btn btn-primary btn-salvar" href="/avaliarexe/{{user[0]}}"
+                role="button" style="background-color:#1f9b44; border: none; box-shadow: 0 0 0 0;float: right; margin-right: 5px; " >avaliar</a><br><br>
+            </div>
+        
+            
+
+              
+             {% endif %}  
           {% endfor %}  
         </form>
         </div>

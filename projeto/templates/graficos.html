@@ -112,10 +112,10 @@
         var options3 = {
             title: 'QUANTIDADE DE CHAMADOS',
             // colors: ['yellow', 'green','red'],         
-            height: 500,
+            
             hAxis: {title: 'Dias'},
             vAxis: {title: 'Quantidade'},                  
-            width: 1000,                    
+                              
             backgroundColor: 'none',
             titleTextStyle: { color: 'black',
             fontName: 'Arial',
@@ -148,8 +148,6 @@
 </head>
 
 
-
-
 <body>
   <header>
     <nav>
@@ -165,26 +163,14 @@
         <li><a href="{{ url_for('consulta_administrador') }}">Solicitações encerradas</a></li>
         <li><a href="{{ url_for('config_adm') }}">Configurações de usuários</a></li>
         <li><a href="{{ url_for('grafico') }}">Estatísitcas</a></li>
-        <li><a href="{{ url_for('login') }}">Sair  </a></li>
+        <li><a href="{{ url_for('login') }}">Sair</a></li>
       </ul>
     </nav>
   </header>
   <script src="../static/js/menu_api.js"></script>
   <br>
-  <h1>ESTATÍSTICAS  {{filtro}}</h1>
+  <h1>ESTATÍSTICAS  <br>Filtro :{{filtro}}</h1>
 
-
-  <!-- <div id="content">
-    <div class="filter" style="display: flex; flex-direction: column; justify-content:center; gap: 5%; margin-top: -20px">
-    <h6 class="form-tempo">Tempo:</h6>
-    <div class="filtro1">
-      <select name="tempo">     
-      <option value="dia">dia</option> 
-      <option value="semana">semana</option>
-      <option value="mês">mês</option>
-      <option value="tudo">tudo</option></select>
-    </div>
-    </div><br> -->
 
 
   <div style="display: flex; flex-direction: column; justify-content:center; gap: 5%; margin-top: -20px;">
@@ -204,20 +190,9 @@
 
 </div>
 
-<form action="/filtroTempoPiz" method="POST" >
-    <div id="content">
-      <h6 class="form-tempo">Mês:</h6>
-      <div class="filtro3">
-        <select name="tempo"> 
-      
-        <option value="dia">dia</option> 
-        <option value="semana">semana</option>
-        <option value="mês">mês</option>
-        <option value="tudo">tudo</option></select>
-      </div><br>
-      <div id="chart_div3" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center"></div>
+      <div class="chart-container" style="display: flex; justify-content: center; align-items: center;">
+        <div id="chart_div3" style="width: 50vw ; height: 40vh;"></div>
     </div>
-  </form>
 </div>
 {% block  conteudo %}   
     {% with resp = get_flashed_messages() %}
@@ -233,32 +208,46 @@
 
 <div id="content">
   <div class="filter" style="display: flex; flex-direction: column; justify-content:center; gap: 5%; margin-top: -80rem; margin-left: 10rem;">
-    <h6 class="form-tempo">Tempo:</h6>
-    <div class="filtro1">
-      <select name="tempo">     
-        <option value="dia">dia</option> 
-        <option value="semana">semana</option>
-        <option value="mês">mês</option>
-        <option value="tudo">tudo</option>
-      </select>
-    </div>
+  </div>
   </div><br>
+
+
+<div style="justify-content: space-around ; width: 35vh; height: 15vh; align-items: center; display:flex ; flex-direction: row; flex-wrap: wrap;">
+  <form action="FiltroPizzaD" method="post">
+    <button name="dia" value="dia" id="FiltroDiaa" type="submit"class="btn btn-primary btn-salvar" role="button" 
+    style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0; float: right; margin-right: 5px; ">
+      Dia
+    </button><br><br></form>
+
+
+<form action="FiltroPizzaS" method="post">
+  <button name="semana" value="semana" id="FiltroS" type="submit"class="btn btn-primary btn-salvar" role="button" 
+style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0; float: right; margin-right: 5px; ">
+    Semana
+  </button><br><br>
+</form>
+
+<form action="FiltroPizza15" method="post">
+  <button name="15d" value="15d" id="Filtro15" type="submit"class="btn btn-primary btn-salvar"  role="button" 
+style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0; float: right; margin-right: 5px; ">
+    15 dias
+  </button><br><br>
+</form>
+
+<form action="FiltroPizzaM" method="post">
+  <button name="mes" value="mes" id="FiltroM" type="submit"class="btn btn-primary btn-salvar"  role="button" 
+style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0; float: right; margin-right: 5px; ">
+    Mês
+  </button><br><br>
+</form>
+
+<form action="FiltroPizzaT" method="post">
+  <button name="tudo" value="tudo" id="FiltroT" type="submit"class="btn btn-primary btn-salvar"  role="button" 
+style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0; float: right; margin-right: 5px; ">
+    Tudo
+  </button><br><br>
+</form>
+
 </div>
-
-<div style="justify-content: space-around ; width: 20vh; height: 10vh; align-items: center; display:flex ; flex-direction: row; flex-wrap: wrap;">
-    <form action="FiltroDia" method="POST">
-      <button> dia </button>
-  </form>
-
-  <form action="/FiltroSemana" method="POST">
-    <button> semana </button>
-  </form>
-
-  <form action="/FiltroMes" method="POST">
-    <button> mes </button>
-  </form>
-</div>
-
-
 </body>
 

@@ -61,19 +61,28 @@
         <textarea name="diagnostico" required readonly style="resize: none;" class="form-control" id="srcDiag" rows="7"
           placeholder="{{ user[10] }}"></textarea>
       </div><br>
-
-      <div class="btn-sair">
+      {%if user[8] !=  none  or user[11] == 'Processando' %}
+      <div class="btn-solicita">
         <a id="btnsair" type="submit" class="btn btn-primary btn-salvar" href="{{ url_for('consulta_cliente') }}"
           role="button" style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;">Sair</a><br><br>
       </div>
-    </form>
-
-    <div class="btn-aval">
+      {%else %}
+   
+      <div class="btn-solicita">
+        <a id="btnsair" type="submit" class="btn btn-primary btn-salvar" href="{{ url_for('consulta_cliente') }}"
+          role="button" style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;">Sair</a><br><br>
+      </div>
+      
+   
       <a id="btnaval" type="submit" class="btn btn-primary btn-salvar" href="/avaliar/{{user[0]}}"
-        role="button" style="background-color:#1f9b44; border: none; box-shadow: 0 0 0 0;">avaliar</a><br><br>
+        role="button" style="background-color:#1f9b44; border: none; box-shadow: 0 0 0 0;float: right; margin-right: 5px; " >avaliar</a><br><br>
     </div>
+    {% endif %}
+
+  </form>
+      
     {% endfor %}
-    </form>
+    
     </div>
     </div>
     </div>

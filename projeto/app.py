@@ -435,12 +435,12 @@ def bt_cliente_visualizar(id): ############################### botão para clien
     if Values > 0:
         Details = cursor.fetchall()
         return render_template('vsolicitacao_cliente.html', Details=Details, Values=Values)
-    return render_template('solicitacao_cliente', Values=Values)
+    return render_template('solicitacao_cliente.html', Values=Values)
 
 
 @app.route("/visualizar_solicitacao_cli/", methods=['GET','POST'])
 def visualizar_cliente(): #tela de visualização de solicitação de cliente 
-    return render_template('vsolicitacao_cliente')
+    return redirect('vsolicitacao_cliente.html')
     
 ####################################################  executor (individual)  ############################################
 
@@ -721,44 +721,46 @@ def mudar_cargo(id):
         con.close()
         con = mysql.connection.cursor()
 
+        #pega os chamados
         cursorChamados = mysql.connection.cursor()
         chamados = []
         cursorChamados.execute("SELECT id_chamado FROM chamados WHERE id_usuario_resp = %s", (id,))
         for i in cursorChamados.fetchall():
             for chamado in i:
                 chamados.append(chamado)
-            
-        print(type(chamados))
-        print("aqui")
-        print(chamados)
-        print(f'{chamados} \n')
-
-
-        y = con.execute("SELECT id_usuario FROM usuarios Where classe = 'Técnico' " )
+                print(f'chamado: {chamado}')
         
-        if y > 0:
-            tecnicos = con.fetchall()
+        cursorTecnicos = mysql.connection.cursor()
+        tecnicos = []
+        cursorTecnicos.execute("SELECT id_usuario FROM usuarios WHERE classe != 'Cliente' AND classe != 'Administrador' AND id_usuario != %s",(id,))
+        for l in cursorTecnicos.fetchall():
+            for tecnico in l:
+                tecnicos.append(tecnico)
+                print(f'tecnico: {tecnico}')
+        
+        cursorDistribuir = mysql.connection.cursor()
+        if len(tecnicos) == 0:
+            cursorAdmin = mysql.connection.cursor()
+            cursorAdmin.execute("SELECT id_usuario FROM usuarios WHERE classe = 'Administrador'")
+            admin = cursorAdmin.fetchone()
+            print(admin)
+            for chamado in chamados:
+                print(chamado)  
+                cursorDistribuir.execute("UPDATE chamados SET id_usuario_resp = %s WHERE id_chamado = %s", (admin,chamado,))
+                mysql.connection.commit()
+          
+        if len(tecnicos) == 1:
+            for chamado in chamados:
+                cursorDistribuir.execute("UPDATE chamados SET id_usuario_resp = %s WHERE id_chamado = %s", (tecnicos[0],chamado))
+                mysql.connection.commit()                  
         else:
-            con = mysql.connection.cursor()
-            con.execute(
-                "UPDATE chamados SET id_usuario_resp = 1")
-            mysql.connection.commit()
-            con.close()
-            return redirect("/config_adm")
-
-        if len(tecnicos) != 0:
-            if len(chamados) == 0:
-                print("Nao há chamadas")
-            else:
+            # listei todos chamados do ex tecnico
+            for chamado in chamados:
                 for tecnico in tecnicos:
-   
-                    con.execute("UPDATE chamados SET id_usuario_resp = %s WHERE id_chamado = %s", (tecnico,chamados[0],))
+                    cursorDistribuir.execute("UPDATE chamados SET id_usuario_resp = %s WHERE id_chamado = %s", (tecnico,chamados[0]))
+                    #atribui um tecnico a um chamado
+                    mysql.connection.commit()                  
                     del chamados[0]
-                    mysql.connection.commit()
-                    if len(chamados) == 0:
-                            break
-
-
 
 
          #Fazer update de  todos os id_usuario_resp desses chamados
@@ -768,59 +770,6 @@ def mudar_cargo(id):
         mysql.connection.commit()
     return redirect('/config_adm')
 
-
-
-# @app.route("/bt_mcargo/<id>", methods=['GET','POST']) ##############################botão mudar cargo
-# def mudar_cargo(id): 
-
-    
-#     con = mysql.connection.cursor()
-#     con.execute("SELECT classe from usuarios where id_usuario =%s ",(id,))
-#     tipo = con.fetchone()
-#     if tipo[0] == 'Técnico':
-#         con.execute(
-#             "UPDATE usuarios SET classe  = 'Cliente' WHERE id_usuario =%s ",(id,)) 
-#         mysql.connection.commit()
-#         con.execute(
-#             "UPDATE chamados SET id_usuario_resp = 0  WHERE id_usuario_resp =%s ",(id,)) 
-#         mysql.connection.commit()
-#         con.close()
-
-#         cursor = mysql.connection.cursor()
-#         cursor.execute("SELECT id_usuario FROM usuarios Where classe = 'Técnico' ")
-#         ids_exec = cursor.fetchall()
-      
-
-#         if len(ids_exec) == 1:
-#             execone = ids_exec[0]
-#             # commita no banco
-#             con = mysql.connection.cursor()
-#             con.execute(
-#                 "UPDATE chamados SET id_usuario_resp =%s", (execone,))
-#             mysql.connection.commit()
-#             con.close()
-#             return redirect("/config_adm")
-     
-
-#         else:
-#                 for x in ids_exec:
-#                     id_executor = x
-#                     con = mysql.connection.cursor()
-#                     con.execute(
-#                         "UPDATE chamados SET id_usuario_resp =%s where id_usuario_resp = 0 ", (id_executor))
-#                     mysql.connection.commit()
-#                     con.close()
-#                 return redirect("/config_adm")
-    
-
-                  
-    
-#     ####### else    
-#     else:
-#         con.execute(
-#             "UPDATE usuarios SET classe  = 'Técnico' WHERE id_usuario =%s ",(id,)) 
-#         mysql.connection.commit()
-#         return redirect("/config_adm")
 
 
     ########################################################################## - adm responde solicitações
@@ -964,14 +913,9 @@ def avaliando(idsoli):
     estrela3=request.form.get('estrela3')
     estrela4=request.form.get('estrela4')
     estrela5=request.form.get('estrela5')
-    estrela6=request.form.get('estrela6')
-    estrela7=request.form.get('estrela7')
-    estrela8=request.form.get('estrela8')
-    estrela9=request.form.get('estrela9')
-    estrela10=request.form.get('estrela10')
-    x=[estrela0,estrela1,estrela2,estrela3,estrela4,estrela5,estrela6,estrela7,estrela8,estrela9,estrela10]
+    x=[estrela0,estrela1,estrela2,estrela3,estrela4,estrela5]
     for i in x:
-        if str(i) in "012345678910":
+        if str(i) in "012345":
             con = mysql.connection.cursor()
             con.execute("UPDATE chamados SET avaliacao =%s, coment_aval=%s WHERE id_chamado = %s ",(i,coment_aval,idsoli,))
             mysql.connection.commit()
@@ -993,14 +937,9 @@ def avaliandoadm(idsoli):
     estrela3=request.form.get('estrela3')
     estrela4=request.form.get('estrela4')
     estrela5=request.form.get('estrela5')
-    estrela6=request.form.get('estrela6')
-    estrela7=request.form.get('estrela7')
-    estrela8=request.form.get('estrela8')
-    estrela9=request.form.get('estrela9')
-    estrela10=request.form.get('estrela10')
-    x=[estrela0,estrela1,estrela2,estrela3,estrela4,estrela5,estrela6,estrela7,estrela8,estrela9,estrela10]
+    x=[estrela0,estrela1,estrela2,estrela3,estrela4,estrela5]
     for i in x:
-        if str(i) in "012345678910":
+        if str(i) in "012345":
             con = mysql.connection.cursor()
             con.execute("UPDATE chamados SET avaliacao =%s, coment_aval=%s WHERE id_chamado = %s ",(i,coment_aval,idsoli,))
             mysql.connection.commit()
@@ -1022,14 +961,9 @@ def avaliandoexe(idsoli):
     estrela3=request.form.get('estrela3')
     estrela4=request.form.get('estrela4')
     estrela5=request.form.get('estrela5')
-    estrela6=request.form.get('estrela6')
-    estrela7=request.form.get('estrela7')
-    estrela8=request.form.get('estrela8')
-    estrela9=request.form.get('estrela9')
-    estrela10=request.form.get('estrela10')
-    x=[estrela0,estrela1,estrela2,estrela3,estrela4,estrela5,estrela6,estrela7,estrela8,estrela9,estrela10]
+    x=[estrela0,estrela1,estrela2,estrela3,estrela4,estrela5]
     for i in x:
-        if str(i) in "012345678910":
+        if str(i) in "012345":
             con = mysql.connection.cursor()
             con.execute("UPDATE chamados SET avaliacao =%s, coment_aval=%s WHERE id_chamado = %s ",(i,coment_aval,idsoli,))
             mysql.connection.commit()
@@ -1043,6 +977,11 @@ def avaliandoexe(idsoli):
 
 
 ############################################################################# Grafico ######################################################################333
+from datetime import date, time, datetime, timedelta
+import datetime
+
+data_atual=datetime.date.today()  #pega a data atual
+filtro = 'tudo'          #ele deve ser modificado de acordo como o menu lateral
 
 @app.route("/grafico") #rota do grafico
 def grafico():
@@ -1056,6 +995,10 @@ def grafico():
     Pendentes = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Processando' ; ")
 
 
+
+    
+
+
     nestrela0 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='0' ; ")
     nestrela1 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='1' ; ") #pega a quantidade de estrelas e salva em varias variasveis
     nestrela2 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='2' ; ")
@@ -1067,13 +1010,88 @@ def grafico():
     nestrela8 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='8' ; ")
     nestrela9 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='9' ; ")
     nestrela10 = cursor.execute("SELECT avaliacao FROM chamados WHERE avaliacao='10' ; ")
+
+    #     #Aplicação do filtro:
+    
+    if filtro == 'dia':
+        numerodedias= 0
+
+    elif filtro == 'semana':
+        numerodedias= 7
+
+    elif filtro == '15d':
+        numerodedias= 15
+
+    elif filtro == 'mes':
+        numerodedias= 30
+
+    elif filtro == 'tudo':
+        numerodedias= 99999
+    else:
+        numerodedias = 0       
+    diferenca = timedelta(days=numerodedias)   
+    testando=data_atual - diferenca   
+    dia_desejado = testando
+
+    FinalizadosF = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Finalizado' and data_de_inicio >= %s; ",(dia_desejado,))
+    RecusadosF = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Rejeitado' and data_de_inicio >= %s; ",(dia_desejado,))
+    PendentesF = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Processando' and data_de_inicio >= %s; ",(dia_desejado,))
+
+    Fechados = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado!='Processando'and data_de_inicio >= %s; ",(dia_desejado,))
+    Abertos = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Processando'and data_de_inicio >= %s; ",(dia_desejado,))
    
 
-    data = [('Pendentes',Pendentes),('Finalizados', Finalizados), ('Recusados',Recusados)] #salva os dados em uma array para serem usados no grafico
+    data = [('Abertos',Abertos),('Fechados',Fechados)] #salva os dados em uma array para serem usados no grafico
     data2 = [('0 Estrela',nestrela0),('1 Estrela',nestrela1),('2 Estrelas', nestrela2), ('3 Estrelas',nestrela3), ('4 Estrelas', nestrela4), ('5 Estrelas', nestrela5), ('6 Estrelas',nestrela6),('7 Estrelas', nestrela7), ('8 Estrelas',nestrela8), ('9 Estrelas', nestrela9), ('10 Estrelas', nestrela10)]
 
     if Finalizados == 0 and Recusados == 0 and Pendentes == 0:
       flash("Não há dados!")
       return render_template('graficos.html', data=data,data2=data2)
 
-    return render_template('graficos.html',Finalizados=Finalizados,Recusados=Recusados,Pendentes=Pendentes,nestrela0=nestrela0,nestrela1=nestrela1,nestrela2=nestrela2,nestrela3=nestrela3,nestrela4=nestrela4,nestrela5=nestrela5,nestrela6=nestrela6,nestrela7=nestrela7,nestrela8=nestrela8,nestrela9=nestrela9,nestrela10=nestrela10,data=data,data2=data2)
+    return render_template('graficos.html',Finalizados=Finalizados,Recusados=Recusados,Pendentes=Pendentes,nestrela0=nestrela0,nestrela1=nestrela1,nestrela2=nestrela2,nestrela3=nestrela3,nestrela4=nestrela4,nestrela5=nestrela5,nestrela6=nestrela6,nestrela7=nestrela7,nestrela8=nestrela8,nestrela9=nestrela9,nestrela10=nestrela10,data=data,data2=data2,filtro=filtro)
+
+# Antes ou depois de mudar um Técnico para cliente, pegar todos os chamados que ele tem e  por numa variavel
+# Depois fazer um "for" e redistribuir pros usuarios que ainda são tecnicos
+
+
+
+@app.route("/FiltroPizzaD", methods=["GET","POST"]) 
+def graficoDia(): 
+    global filtro
+    filtrar = request.form
+    filtro = filtrar['dia']
+
+    return redirect ('/grafico')
+
+@app.route("/FiltroPizzaS", methods=["GET","POST"]) 
+def graficaSemana(): 
+    global filtro
+    filtrar = request.form
+    filtro = filtrar['semana']
+
+    return redirect ('/grafico')
+
+@app.route("/FiltroPizza15", methods=["GET","POST"]) 
+def grafica15d(): 
+    global filtro
+    filtrar = request.form
+    filtro = filtrar['15d']
+
+    return redirect ('/grafico')
+
+
+@app.route("/FiltroPizzaM", methods=["GET","POST"]) 
+def graficaMes(): 
+    global filtro
+    filtrar = request.form
+    filtro = filtrar['mes']
+
+    return redirect ('/grafico')
+
+@app.route("/FiltroPizzaT", methods=["GET","POST"]) 
+def graficaTudo(): 
+    global filtro
+    filtrar = request.form
+    filtro = filtrar['tudo']
+
+    return redirect ('/grafico')

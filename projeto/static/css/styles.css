@@ -49,27 +49,38 @@ h1, #termo {
     font-size: 15px;   
     font-family: Arial;
     font-weight: bold;
-
     text-decoration: none;
     
 }
 
 
+#btnaval:hover{
+ padding: 6.5px;
+ padding-right: 20px;
+ padding-left: 20px;
+
+}
+
+#btnaval{
+    padding: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+    
+}
+
+#btnsair:hover{
+    padding: 6.5px;
+    padding-right: 12px;
+    padding-left: 12px;
+   
+}
+   
+   
 
 .btn-solicita{
     float: right;
     margin-right: 27.3%;
-}
-
-#btnsair{
-    float: right;
-    margin-right: 27.3%;
-}
-
-#btnaval{
-    float: right;
-    margin-right: 32.3%;
-    margin-top: -4.1%;
+    padding: 0;
 }
 
 #btnresponder{

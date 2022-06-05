@@ -76,7 +76,7 @@
       color: #444;
       padding: 10px;
       float: right;
-      transition: all 0.2s ease;
+      transition: all 0.85s ease;
     }
 
     input:not(:checked)~label:hover,
@@ -87,13 +87,14 @@
     input#rate-0:not(:checked)~label:hover,
     input#rate-0:not(:checked)~label:hover~label {
       color: rgb(219, 47, 28);
+      margin-right: 50px;
     }
 
     input:checked~label {
       color: #fd4;
     }
 
-    input#rate-10:checked~label {
+    input#rate-5:checked~label {
       /*nota maxima que brilha*/
       color: #fe7;
       text-shadow: 0 0 20px #952;
@@ -102,26 +103,8 @@
       /*nota maxima que brilha*/
       color: rgb(222, 39, 39);
       text-shadow: 0 0 20px #952;
-    }
+      
 
-    form #rate-10:checked~form header:before {
-      content: " NOTA 10";
-    }
-
-    form #rate-9:checked~form header:before {
-      content: "NOTA 9 ";
-    }
-
-    form #rate-8:checked~form header:before {
-      content: " NOTA 8";
-    }
-
-    form #rate-7:checked~form header:before {
-      content: "NOTA 7";
-    }
-
-    form #rate-6:checked~form header:before {
-      content: "NOTA 6";
     }
 
 
@@ -147,6 +130,7 @@
     }
     form #rate-0:checked~form header:before {
       content: "NOTA 0";
+      margin-right: 50px;
     }
 
 
@@ -225,21 +209,6 @@
         <button type="submit">ENVIAR</button>
       </div>
       <div class="star-widget"  onclick="showDiv()">
-        <input type="radio" name="estrela10" value=10 id="rate-10">
-        <label for="rate-10" class="fas fa-star"></label>
-
-        <input type="radio" name="estrela9" value=9 id="rate-9">
-        <label for="rate-9" class="fas fa-star"></label>
-
-        <input type="radio" name="estrela8" value=8 id="rate-8">
-        <label for="rate-8" class="fas fa-star"></label>
-
-        <input type="radio" name="estrela7" value=7 id="rate-7">
-        <label for="rate-7" class="fas fa-star"></label>
-
-        <input type="radio" name="estrela6" value=6 id="rate-6">
-        <label for="rate-6" class="fas fa-star"></label>
-
 
         <input type="radio" name="estrela5" value=5 id="rate-5">
         <label for="rate-5" class="fas fa-star"></label>

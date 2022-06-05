@@ -64,18 +64,11 @@
                   rows="7" placeholder="{{ user[10] }}"></textarea>
               </div><br>
 
-              <div class="btn-aval">
-                <a id="btnaval" type="submit" class="btn btn-primary btn-salvar" href="/avaliar/{{user[0]}}"
-                  role="button" style="background-color:#1f9b44; border: none; box-shadow: 0 0 0 0;">Avaliar</a><br><br>
-              </div>
-
-              <div class="btn-sair">
+              <div class="btn-solicita">
                 <a id="btnsair" type="submit"class="btn btn-primary btn-salvar" href="{{ url_for('consulta_executor2') }}" role="button" 
                 style="background-color:#BA3135; border: none; box-shadow: 0 0 0 0;" 
                 >Sair</a><br><br>
               </div>
-
-              
           
           {% endfor %}  
         </form>
