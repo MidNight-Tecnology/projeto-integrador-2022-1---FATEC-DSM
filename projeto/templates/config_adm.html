@@ -47,7 +47,7 @@
               <th scope="col">Nome</th>
               <th scope="col">Email</th>
               <th scope="col">Cargo</th>
-              <th scope="col">Média</th>
+              <!-- <th scope="col">Média</th> -->
               
               <th scope="col">Mudar Cargo</th>
             </tr>
@@ -62,7 +62,7 @@
               <td> {{ user[1] }} </td>
               <td> {{ user[2] }} </td>
               <td> {{ user[6] }}  </td>
-              <td> {{ user[8] if user[8]  }}  </td>
+              <!-- <td> {{medias_tecs }}</td> -->
 
             <form action="/bt_mcargo/{{ user[0] }}" method="POST">
             {%if user[6] == 'Técnico' %}

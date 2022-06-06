@@ -8,7 +8,7 @@ app.config['SECRET_KEY'] = "minha-chave"
 # conexão com o banco de dados
 app.config['MYSQL_Host'] = 'localhost'  # 127.0.0.1
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'nai123'  # muda aq pra sua senha
+app.config['MYSQL_PASSWORD'] = '12345'  # muda aq pra sua senha
 app.config['MYSQL_DB'] = 'API'
 
 
@@ -703,6 +703,53 @@ def config_adm(): #mudar cliente para técnico
     flash("Não há dados!")
     return render_template('config_adm.html',Values=Values)
 
+# @app.route("/config_adm/", methods=['GET','POST'])
+# def config_adm(): #mudar cliente para técnico
+
+#     cur = mysql.connection.cursor()
+#     cur.execute("SELECT id_usuario FROM usuarios WHERE classe='Técnico'")
+#     tecs = cur.fetchall()
+#     medias_tecs = []
+#     for tec in tecs:
+#         cur.execute('SELECT avaliacao FROM chamados WHERE avaliacao is not null and id_usuario_resp=%s ', [tec])
+#         notas = cur.fetchall()
+#         if not notas:
+#             media = 'Null'
+#             cur.execute('SELECT email FROM usuarios WHERE id_usuario=%s', [tec])
+#             email = cur.fetchall()
+#             email = email[0][0]
+
+#         else:
+#             total = 0
+#             for n in notas:
+#                 total = total + int(n[0])
+#             media = total/len(notas)
+#             media = format(media, '.2f')
+
+#             cur.execute('SELECT email FROM usuarios WHERE id_usuario=%s', [tec])
+#             email = cur.fetchall()
+#             email = email[0][0]
+
+#         media_email =[]
+#         media_email.append(email)
+#         media_email.append(media)
+
+#         medias_tecs.append(media_email)
+#         print(medias_tecs)
+
+
+
+
+#     cursor = mysql.connection.cursor()
+#     Values = cursor.execute("SELECT * FROM usuarios where classe = 'Cliente' or  classe ='Técnico'")
+#     if Values > 0:
+#         usu = cursor.fetchall()
+#         return render_template('config_adm.html', usu=usu, Values=Values, medias_tecs = medias_tecs )
+
+
+#     flash("Não há dados!")
+#     return render_template('config_adm.html' )
+
 
 @app.route("/bt_mcargo/<id>", methods=['GET','POST']) ##############################botão mudar cargo
 def mudar_cargo(id): 
@@ -1033,22 +1080,71 @@ def grafico():
     testando=data_atual - diferenca   
     dia_desejado = testando
 
+    
+    cursor.execute("SELECT DATE_FORMAT(data_de_inicio, '%Y-%m-%d') from chamados;")
+    Datas=cursor.fetchall()
+    DatasUnicas=[]
+    DataFormat=[]
+    DAbertos=[]
+    DFechados=[]
+    for x in Datas:
+        
+        if str(x) not in DatasUnicas:
+            DatasUnicas.append(str(x))
+
+    for x in DatasUnicas:
+        DataFormat.append(x[2:-3])
+
+    DataFormat=sorted(DataFormat)
+
+
+    for x in DataFormat:
+        TDFechados = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado!='Processando'and data_de_inicio <= %s; ",(x,))
+        DFechados.append(TDFechados)
+        TDAbertos = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Processando'and data_de_inicio <= %s; ",(x,))
+        DAbertos.append(TDAbertos)
+
+
     FinalizadosF = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Finalizado' and data_de_inicio >= %s; ",(dia_desejado,))
     RecusadosF = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Rejeitado' and data_de_inicio >= %s; ",(dia_desejado,))
     PendentesF = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Processando' and data_de_inicio >= %s; ",(dia_desejado,))
 
     Fechados = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado!='Processando'and data_de_inicio >= %s; ",(dia_desejado,))
     Abertos = cursor.execute("SELECT estado_chamado FROM chamados WHERE estado_chamado='Processando'and data_de_inicio >= %s; ",(dia_desejado,))
-   
+
+    NDatas=cursor.execute("SELECT data_de_inicio FROM chamados")
+    TodasDatas=cursor.fetchall()
+    ListaDistribuida=[]
+
+    for x in range(len(DataFormat)):
+        d=[]
+        d=ListaDistribuida.append(DataFormat[x])
+        d=ListaDistribuida.append(DFechados[x])
+        d=ListaDistribuida.append(DAbertos[x]) 
+        ListaDistribuida.append(d)
+
+    if len(DatasUnicas)>0:
+        data3 =[(DataFormat,TDAbertos,DFechados)]
+        testando1=[]
+        testando1.append(DataFormat)
+        testando1.append(DFechados)
+        testando1.append(DAbertos)
+        countTestando=len(DataFormat)
+    
 
     data = [('Abertos',Abertos),('Fechados',Fechados)] #salva os dados em uma array para serem usados no grafico
-    data2 = [('0 Estrela',nestrela0),('1 Estrela',nestrela1),('2 Estrelas', nestrela2), ('3 Estrelas',nestrela3), ('4 Estrelas', nestrela4), ('5 Estrelas', nestrela5), ('6 Estrelas',nestrela6),('7 Estrelas', nestrela7), ('8 Estrelas',nestrela8), ('9 Estrelas', nestrela9), ('10 Estrelas', nestrela10)]
+    data2 = [('0 Estrela',nestrela0),('1 Estrela',nestrela1),('2 Estrelas', nestrela2), ('3 Estrelas',nestrela3), ('4 Estrelas', nestrela4), ('5 Estrelas', nestrela5)]
+    if len(DatasUnicas)>0:
+        data3 =[(DataFormat,TDAbertos,DFechados)]
 
     if Finalizados == 0 and Recusados == 0 and Pendentes == 0:
       flash("Não há dados!")
-      return render_template('graficos.html', data=data,data2=data2)
+      return render_template('graficos.html')
 
-    return render_template('graficos.html',Finalizados=Finalizados,Recusados=Recusados,Pendentes=Pendentes,nestrela0=nestrela0,nestrela1=nestrela1,nestrela2=nestrela2,nestrela3=nestrela3,nestrela4=nestrela4,nestrela5=nestrela5,nestrela6=nestrela6,nestrela7=nestrela7,nestrela8=nestrela8,nestrela9=nestrela9,nestrela10=nestrela10,data=data,data2=data2,filtro=filtro)
+    return render_template('graficos.html',Finalizados=Finalizados,Recusados=Recusados,Pendentes=Pendentes,nestrela0=nestrela0,nestrela1=nestrela1,nestrela2=nestrela2,nestrela3=nestrela3,nestrela4=nestrela4,nestrela5=nestrela5,
+data=data,filtro=filtro,dia_desejado=dia_desejado,Fechados=Fechados,Abertos=Abertos,DataFormat=DataFormat,
+DAbertos=DAbertos,DFechados=DFechados,data3=data3,ListaDistribuida=ListaDistribuida,testando1=testando1,countTestando=countTestando
+)
 
 # Antes ou depois de mudar um Técnico para cliente, pegar todos os chamados que ele tem e  por numa variavel
 # Depois fazer um "for" e redistribuir pros usuarios que ainda são tecnicos
