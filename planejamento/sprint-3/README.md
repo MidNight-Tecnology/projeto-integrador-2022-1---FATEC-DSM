@@ -110,7 +110,10 @@ Login padrão:
 
 ![Modelo Conceitual](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-3/Modelo_Conceitual_-_SP-03.png)
 ![Modelo Lógico](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-3/Modelo_Logico_-_SP-03.png)	
-
+![Banco de dados 1](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-3/banco%20de%20dados%20sprint%203%20-%201.jpeg)
+![Banco de dados 2](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-3/banco%20de%20dados%20sprint%203%20-%202.jpeg)
+![Banco de dados 3](https://github.com/impulseteam/projeto-integrador-2022-1---FATEC-DSM/blob/main/planejamento/sprint-3/banco%20de%20dados%20sprint%203%20-%203.jpeg)
+	
 → [Voltar ao topo](#topo)
   
 <br>
